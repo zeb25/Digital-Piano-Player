@@ -1,31 +1,39 @@
-# Confetti Button
+# Final-Project 
+Purva Shirolkar & Zoe Bell
 
-Hopefully you have something to celebrate, because the confetti is coming!
+## Summary
+A piano, C++, graphics program that uses an audio plug-in(JUCE) and displays a
+graphical keyboard that the user can play using their mouse or laptop keys. The
+visuals will display in a fixed size window with three different screens. The home
+screen will have two buttons, one for the "free play" option, and one for the
+"practice song" option. The "free play" screen will display the keyboard for the
+user to freely play music with audio being output using the audio plug-in. The
+"practice song" screen will display the keyboard and some instructions as to how
+the user will practice. The computer will go through the song, playing the keys
+and highlighting them on the keyboard, then after finishing it will start the
+practice. The computer will play the first note of the song and highlight the key on
+the keyboard, and wait for the user to play that same note before moving on to
+the next note of the song. After finishing, the computer will play the song one
+more time all the way through, then the user will have to also play the song all
+the way through; if they do this correctly the practice rounds concludes and the
+screen exits to the main menu, if the user doesn't correctly play all the keys, the
+practice restarts. If the esc key is pressed at any point, the user will exit to the
+main menu.
 
-For this project, you will use C++ graphics with classes to get a button to react to mouse and keyboard activity.
+## Concepts
 
-You may work individually or with a partner of your choosing.
+## How to run
 
-## Setup
+## Installations
 
-Use this Guided Project template to create a new repository (see [GitHub-with-CLion](https://github.com/uvmcs2300s2024/GitHub-with-CLion) repo for directions).
-**Your repository must be named with the convention: Confetti-Button-netid**, where netid is your UVM NetID username.
-* If you are collaborating, the format is Confetti-Button-netid1-netid2. Have one partner create the repository and give the other partner access on GitHub: on the repository page, go to the Settings tab, choose Manage Access, and add the person with their GitHub username.
+## Citations
 
-Remember to commit and push frequently.
+## Grading structure
+The project is out of 200 points.
 
-# Requirements
-
-1. Read through the header and .cpp files for Shape and Rect, inside the src/shapes folder.
-1. Implement the methods in Shape.cpp and Rect.cpp that have TODO comments.
-1. Read through engine.cpp in the src folder.
-1. Implement the TODO parts of engine.cpp.
-
-## Grading
-
-If you are collaborating, both partners have to submit the project.
-
-### Grading Rubric
-- [ ] (2 pts) Complete TODOs in rect.cpp
-- [ ] (2 pts) Complete TODO in shape.cpp
-- [ ] (16 pts) Complete all TODOs in engine.cpp.
+| Points Possible | Description of requirement                                               |
+|-----------------|--------------------------------------------------------------------------|
+| 100 pts         | Learning and implementing JUCE with our chosen IDE                       |
+| 40 pts          | Integrating graphics (screens and piano)                                 |
+| 50 pts          | Game component: implementing the logic of the song practice mode         |
+| 10 pts          | Collaboration: all code committed to Github correctly, ReadMe filled out |
