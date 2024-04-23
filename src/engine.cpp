@@ -97,9 +97,13 @@ void Engine::processInput() {
     // Mouse position saved to check for collisions
     glfwGetCursorPos(window, &MouseX, &MouseY);
 
-    // TODO: If we're in the start screen and the user presses s, change screen to fun
+    // If we're in the start screen and the user presses s, change screen to fun
     if (screen == start && keys[GLFW_KEY_S])
         screen = fun;
+
+    // If we're in the start screen and the user presses p, change screen to practice
+    if (screen == start && keys[GLFW_KEY_P])
+        screen = practice;
 
 //    // TODO: If we're in the fun screen and an arrow key is pressed, move the spawnButton
 //    // Hint: one of the indices is GLFW_KEY_UP
@@ -203,9 +207,6 @@ void Engine::render() {
 
         }
 
-
-
-        //TODO: Change case name to fun screen
         case fun: {
 
             // Check if 5 seconds have passed to hide the text
@@ -215,9 +216,9 @@ void Engine::render() {
                 // Clear the color buffer
                 glClear(GL_COLOR_BUFFER_BIT);
 
-                string title = "Instructions";
+                string title = "How to play";
                 // Displayed at top of screen
-                this->fontRenderer->renderText(title, width / 1.8 - (20 * title.length()), height / 1.25, 1.5, vec3{0.996, 0.796, 0.243});
+                this->fontRenderer->renderText(title, width / 1.8 - (20 * title.length()), height / 1.2, 1.5, vec3{0.996, 0.796, 0.243});
 
                 int leftAlign = 50;
                 int verticalSpacing = 40;
@@ -247,7 +248,65 @@ void Engine::render() {
             break;
         }
 
-        //TODO: Add a practice screen here
+        //Add a practice screen here
+        case practice: {
+
+            // Check if 5 seconds have passed to hide the text
+            if (elapsedTime < 10.0f) {
+
+                glClearColor(0.596f, 0.714f, 0.929f, 1.0f); // Light blue background
+                // Clear the color buffer
+                glClear(GL_COLOR_BUFFER_BIT);
+
+                string title = "How to practice";
+                // Displayed at top of screen
+                this->fontRenderer->renderText(title, width / 1.8 - (20 * title.length()), height / 1.2, 1.5, vec3{0.996, 0.796, 0.243});
+
+                int leftAlign = 50;
+                int initialVerticalPosition = height - 160;
+                int verticalSpacing = 40;
+
+                string i1 = ">> The program will play the song first and ";
+                this->fontRenderer->renderText(i1, leftAlign, initialVerticalPosition, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i2 = "   highlight each key played on the keyboard";
+                this->fontRenderer->renderText(i2, leftAlign, initialVerticalPosition - verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i3 = ">> Next, it's your turn! Click on the";
+                this->fontRenderer->renderText(i3, leftAlign, initialVerticalPosition - 2 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i4 = "    highlighted keys as they appear";
+                this->fontRenderer->renderText(i4, leftAlign, initialVerticalPosition - 3 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i5 = ">> Once you're done playing, the program will ";
+                this->fontRenderer->renderText(i5, leftAlign, initialVerticalPosition - 4 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i6 = "   play the song one more time";
+                this->fontRenderer->renderText(i6, leftAlign, initialVerticalPosition - 5 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i7 = ">> It's game time now! Play the song correctly";
+                this->fontRenderer->renderText(i7, leftAlign, initialVerticalPosition - 6 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i8 = "   to win";
+                this->fontRenderer->renderText(i8, leftAlign, initialVerticalPosition - 7 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i9 = ">> Press esc to exit";
+                this->fontRenderer->renderText(i9, leftAlign, initialVerticalPosition - 8 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i10 = ">> Press the left arrow key to return home";
+                this->fontRenderer->renderText(i10, leftAlign, initialVerticalPosition - 9 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+
+            } else {
+                showText = false;
+            }
+
+            // Increment the elapsed time
+            elapsedTime += deltaTime; // deltaTime is the time since the last frame
+
+            break;
+
+        }
 
         case over: {
             // Set background color
