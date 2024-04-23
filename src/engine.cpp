@@ -130,7 +130,6 @@ void Engine::processInput() {
     }
 
 
-
     // If we're in the start screen and the user presses s, change screen to fun
     if (screen == start && keys[GLFW_KEY_S])
         screen = fun;
