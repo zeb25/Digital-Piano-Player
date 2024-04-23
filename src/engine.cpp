@@ -3,15 +3,13 @@
 enum state {start, play, over};
 state screen;
 
-// variable to keep track of the elapsed time
+// Instructions variables to keep track of the elapsed time
 float elapsedTime = 0.0f;
 bool showText = true;
 
 // Colors
 color originalFill, hoverFill, pressFill;
 
-// TODO Note: complete the drawing TODOs in render before the other TODOs,
-//  otherwise you won't be able to see if your code is correct
 
 Engine::Engine() : keys() {
     this->initWindow();
