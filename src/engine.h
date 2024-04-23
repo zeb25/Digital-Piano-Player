@@ -41,8 +41,6 @@ private:
     unique_ptr<Shape> spawnButton;
     vector<unique_ptr<Shape>> confetti;
 
-    vector<unique_ptr<Shape>> buttonVec;
-    vector<unique_ptr<Shape>> purpleButtonVec;
 
     // Shaders
     Shader shapeShader;

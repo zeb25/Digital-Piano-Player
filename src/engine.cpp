@@ -72,25 +72,6 @@ void Engine::initShaders() {
 
 void Engine::initShapes() {
 
-    // outline/hover
-    // Play button position
-    vec2 buttonPos1 = {width / 2 - 25, height - 80};
-    this->purpleButtonVec.push_back(make_unique<Rect>(shapeShader, buttonPos1, vec2{90, 90}, color{74, 20, 140, 1}));
-
-    // Practice button position
-    vec2 buttonPos2 = {width / 2 + 25, height - 80};
-    this->purpleButtonVec.push_back(make_unique<Rect>(shapeShader, buttonPos2, vec2{90, 90}, color{74, 20, 140, 1}));
-
-    // Play button position
-    vec2 buttonPos3 = {width / 2 - 25, height - 80};
-    this->purpleButtonVec.push_back(make_unique<Rect>(shapeShader, buttonPos3, vec2{80, 80}, color{1, 1, 1, 1}));
-
-    // Practice button position
-    vec2 buttonPos4 = {width / 2 + 25, height - 80};
-    this->purpleButtonVec.push_back(make_unique<Rect>(shapeShader, buttonPos4, vec2{80, 80}, color{1, 1, 1, 1}));
-
-
-
     // red spawn button centered in the top left corner
     spawnButton = make_unique<Rect>(shapeShader, vec2{width/2,height/2}, vec2{100, 50}, color{1, 0, 0, 1});
 }
@@ -117,19 +98,6 @@ void Engine::processInput() {
     // Mouse position saved to check for collisions
     glfwGetCursorPos(window, &MouseX, &MouseY);
 
-    // Check if the mouse hovers over purple buttons and change their color accordingly
-    for (const auto& purplebutton : purpleButtonVec) {
-        bool buttonOverlapsMouse = purplebutton->isOverlapping(vec2(MouseX, MouseY));
-        if (buttonOverlapsMouse) {
-            // Change color of the red button to make it visible
-            purplebutton->setColor(color{74, 20, 140, 1});
-        } else {
-            // Change color back to black when the mouse is not hovering over it
-            purplebutton->setColor(color{0, 0, 0, 1});
-        }
-    }
-
-
     // If we're in the start screen and the user presses s, change screen to fun
     if (screen == start && keys[GLFW_KEY_S])
         screen = fun;
@@ -152,7 +120,6 @@ void Engine::processInput() {
 //    if(screen == play && keys[GLFW_KEY_RIGHT] && spawnButton->getPosX() <= 800){
 //        spawnButton->moveX(1);
 //    }
-    // TODO: Make sure the spawnButton cannot go off the screen
 
 
     // Mouse position is inverted because the origin of the window is in the top left corner
@@ -162,22 +129,21 @@ void Engine::processInput() {
 
     // TODO: When in fun screen, if the user hovers or clicks on the button then change the spawnButton's color
     // Hint: look at the color objects declared at the top of this file
-    if(screen == fun && (buttonOverlapsMouse || mousePressed)){
+    if (screen == fun && (buttonOverlapsMouse || mousePressed)) {
         spawnButton->setRed(100);
     }
     // TODO: When in fun screen, if the button was released then spawn confetti
     // Hint: the button was released if it was pressed last frame and is not pressed now
-    if(screen == fun && mousePressed == false && mousePressedLastFrame == true){
+    if (screen == fun && mousePressed == false && mousePressedLastFrame == true) {
         spawnConfetti();
     }
     // TODO: Make sure the spawn button is its original color when the user is not hovering or clicking on it.
-    if(screen == fun && !(buttonOverlapsMouse && mousePressed)){
+    if (screen == fun && !(buttonOverlapsMouse && mousePressed)) {
         spawnButton->setRed(10);
     }
 
     // Save mousePressed for next frame
     mousePressedLastFrame = mousePressed;
-
 }
 
 void Engine::update() {
@@ -188,7 +154,7 @@ void Engine::update() {
 
     // TODO: End the game when the user spawns 100 confetti
     // If the size of the confetti vector reaches 100, change screen to over
-    if(confetti.size() >= 100){
+    if (confetti.size() >= 100) {
         screen = over;
     }
 }
@@ -211,43 +177,35 @@ void Engine::render() {
 
             string title = "Piano Play";
             // Displayed at top of screen
-            this->fontRenderer->renderText(title, width / 2 - (20 * title.length()), height / 1.25, 1.75, vec3{1, 1, 1});
+            this->fontRenderer->renderText(title, width / 2 - (20 * title.length()), height / 1.25, 1.75,
+                                           vec3{1, 1, 1});
 
             // Each sentence
             string sentence1 = "Welcome to our interactive piano practice program!";
             string sentence2 = "Play for fun or practice a short song";
             //string sentence3 = "Switch off all the lights with the least number of clicks.";
             // Positioning, size, color
-            this->fontRenderer->renderText(sentence1, width / 6.5 - (5 * title.length()), height / 2 + 50, 0.58,vec3{0.808, 0.396, 0.667});
-            this->fontRenderer->renderText(sentence2, width / 6.5 - (5 * title.length()), height / 2, 0.58, vec3{0.808, 0.396, 0.667});
+            this->fontRenderer->renderText(sentence1, width / 6.5 - (5 * title.length()), height / 2 + 50, 0.58,
+                                           vec3{0.808, 0.396, 0.667});
+            this->fontRenderer->renderText(sentence2, width / 6.5 - (5 * title.length()), height / 2, 0.58,
+                                           vec3{0.808, 0.396, 0.667});
             //this->fontRenderer->renderText(sentence3, width / 6.5 - (5 * title.length()), height / 2 - 50, 0.5,vec3{0.871, 0.055, 0.8});
-
-            //Set up all buttons and outlines
-            for (const unique_ptr<Shape> &b: purpleButtonVec) {
-                b->setUniforms();
-                b->draw();
-            }
-
-            for (const unique_ptr<Shape> &b: buttonVec) {
-                b->setUniforms();
-                b->draw();
-            }
 
             string fun = "Press S to play for fun";
             // (12 * message.length()) is the offset to center text.
             // 12 pixels is the width of each character scaled by 1.
-            this->fontRenderer->renderText(fun, width / 2 - (12 * fun.length()), height / 5, 0.9, vec3{0.604, 0.325, 0.6});
+            this->fontRenderer->renderText(fun, width / 2 - (12 * fun.length()), height / 5, 0.9,
+                                           vec3{0.604, 0.325, 0.6});
 
-        //TODO: configure P key to bring user to practice screen
             string practice = "Press P to practice a song";
             // (12 * message.length()) is the offset to center text.
             // 12 pixels is the width of each character scaled by 1.
-            this->fontRenderer->renderText(practice, width / 2 - (12 * practice.length()), height / 5 + 50, 0.9, vec3{0.604, 0.325, 0.6});
+            this->fontRenderer->renderText(practice, width / 2 - (12 * practice.length()), height / 5 + 50, 0.9,
+                                           vec3{0.604, 0.325, 0.6});
 
             // Reset elapsedTime every time user is on start screen
             elapsedTime = 0.0f;
             break;
-
         }
 
         case fun: {
@@ -367,6 +325,7 @@ void Engine::render() {
     glfwSwapBuffers(window);
 }
 
+
 void Engine::spawnConfetti() {
     vec2 pos = {rand() % (int)width, rand() % (int)height};
     // TODO: Make each piece of confetti a different size, getting bigger with each spawn.
@@ -376,6 +335,7 @@ void Engine::spawnConfetti() {
     color color = {float(rand() % 10 / 10.0), float(rand() % 10 / 10.0), float(rand() % 10 / 10.0), 1.0f};
     confetti.push_back(make_unique<Rect>(shapeShader, pos, size, color));
 }
+
 
 bool Engine::shouldClose() {
     return glfwWindowShouldClose(window);
