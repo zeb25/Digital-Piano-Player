@@ -3,6 +3,10 @@
 enum state {start, play, over};
 state screen;
 
+// variable to keep track of the elapsed time
+float elapsedTime = 0.0f;
+bool showText = true;
+
 // Colors
 color originalFill, hoverFill, pressFill;
 
@@ -171,7 +175,7 @@ void Engine::render() {
             // Displayed at top of screen
             this->fontRenderer->renderText(title, width / 2 - (20 * title.length()), height / 1.25, 1.75, vec3{1, 1, 1});
 
-            // Each instruction
+            // Each sentence
             string sentence1 = "Welcome to our interactive piano practice program!";
             string sentence2 = "Play for fun or practice a short song";
             //string sentence3 = "Switch off all the lights with the least number of clicks.";
@@ -193,12 +197,35 @@ void Engine::render() {
             this->fontRenderer->renderText(practice, width / 2 - (12 * practice.length()), height / 5 + 50, 0.9, vec3{0.604, 0.325, 0.6});
             break;
         }
-        //TODO: Instructions for both screens (fun and practice)
 
+        //TODO: Change case name to fun screen
         case play: {
-            // TODO: call setUniforms and draw on the spawnButton and all of the confetti pieces
-            //  Hint: make sure you draw the spawn button after the confetti to make it appear on top
-            // Render font on top of spawn button
+            // Instructions
+
+            // Check if 5 seconds have passed to hide the text
+            if (elapsedTime < 5.0f) {
+
+                glClearColor(0.913f,0.662f,0.784f,1.0f); // Light blue background
+                // Clear the color buffer
+                glClear(GL_COLOR_BUFFER_BIT);
+
+                string title = "Instructions";
+                // Displayed at top of screen
+                this->fontRenderer->renderText(title, width / 1.8 - (20 * title.length()), height / 1.25, 1.5, vec3{0.49, 0.596, 0.788});
+
+                // Each instruction
+                string i1 = ">> Simply click on the keys to produce sound";
+                this->fontRenderer->renderText(i1, width / 2.7 - (5 * i1.length()), height - 230, 0.62, vec3{0.984, 0.945, 0.933});
+
+                string i2 = ">> Press esc to exit";
+                this->fontRenderer->renderText(i2, width / 4 - (6 * i2.length()), height - 270, 0.62, vec3{0.984, 0.945, 0.933});
+
+            } else {
+                showText = false;
+            }
+
+            // Increment the elapsed time
+            elapsedTime += deltaTime; // deltaTime is the time since the last frame
 
             for(const unique_ptr<Shape>& r: confetti){
                 r->setUniforms();
@@ -207,9 +234,11 @@ void Engine::render() {
             spawnButton->setUniforms();
             spawnButton->draw();
 
-            fontRenderer->renderText("Spawn", spawnButton->getPos().x - 30, spawnButton->getPos().y - 5, 0.5, vec3{1, 1, 1});
             break;
         }
+
+        //TODO: Add a practice screen here
+
         case over: {
             // Set background color
             glClearColor(0.913f, 0.662f, 0.784f, 1.0f); // Light pink
