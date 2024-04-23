@@ -91,6 +91,10 @@ void Engine::processInput() {
     if (keys[GLFW_KEY_ESCAPE])
         glfwSetWindowShouldClose(window, true);
 
+    // Go back to start screen if left arrow key is pressed
+    if (keys[GLFW_KEY_LEFT])
+        screen = start;
+
     // Mouse position saved to check for collisions
     glfwGetCursorPos(window, &MouseX, &MouseY);
 
@@ -98,20 +102,20 @@ void Engine::processInput() {
     if (screen == start && keys[GLFW_KEY_S])
         screen = play;
 
-    // TODO: If we're in the play screen and an arrow key is pressed, move the spawnButton
-    // Hint: one of the indices is GLFW_KEY_UP
-    if(screen == play && keys[GLFW_KEY_UP] && spawnButton->getPosY() <= 600){
-        spawnButton->moveY(1);
-    }
-    if(screen == play && keys[GLFW_KEY_DOWN] && spawnButton->getPosY() >= 0){
-        spawnButton->moveY(-1);
-    }
-    if(screen == play && keys[GLFW_KEY_LEFT] && spawnButton->getPosX() >= 0){
-        spawnButton->moveX(-1);
-    }
-    if(screen == play && keys[GLFW_KEY_RIGHT] && spawnButton->getPosX() <= 800){
-        spawnButton->moveX(1);
-    }
+//    // TODO: If we're in the play screen and an arrow key is pressed, move the spawnButton
+//    // Hint: one of the indices is GLFW_KEY_UP
+//    if(screen == play && keys[GLFW_KEY_UP] && spawnButton->getPosY() <= 600){
+//        spawnButton->moveY(1);
+//    }
+//    if(screen == play && keys[GLFW_KEY_DOWN] && spawnButton->getPosY() >= 0){
+//        spawnButton->moveY(-1);
+//    }
+//    if(screen == play && keys[GLFW_KEY_LEFT] && spawnButton->getPosX() >= 0){
+//        spawnButton->moveX(-1);
+//    }
+//    if(screen == play && keys[GLFW_KEY_RIGHT] && spawnButton->getPosX() <= 800){
+//        spawnButton->moveX(1);
+//    }
     // TODO: Make sure the spawnButton cannot go off the screen
 
 
@@ -211,12 +215,28 @@ void Engine::render() {
                 // Displayed at top of screen
                 this->fontRenderer->renderText(title, width / 1.8 - (20 * title.length()), height / 1.25, 1.5, vec3{0.996, 0.796, 0.243});
 
-                // Each instruction
-                string i1 = ">> Simply click on the keys to produce sound";
-                this->fontRenderer->renderText(i1, width / 2.7 - (5 * i1.length()), height - 230, 0.62, vec3{0.984, 0.945, 0.933});
+//                // Each instruction
+//                string i1 = ">> Simply click on the piano keys to produce sound";
+//                this->fontRenderer->renderText(i1, width / 2.7 - (5 * i1.length()), height - 230, 0.62, vec3{0.984, 0.945, 0.933});
+//
+//                string i2 = ">> Press esc to exit";
+//                this->fontRenderer->renderText(i2, width / 4 - (6 * i2.length()), height - 270, 0.62, vec3{0.984, 0.945, 0.933});
+//
+//                string i3 = ">> Press the left arrow key at any point to return to the home screen";
+//                this->fontRenderer->renderText(i3, width / 1 - (40 * i3.length()), height - 310, 0.40, vec3{0.984, 0.945, 0.933});
+
+
+                int leftAlign = 50;
+                int verticalSpacing = 40;
+
+                string i1 = ">> Simply click on the piano keys to produce sound";
+                this->fontRenderer->renderText(i1, leftAlign, height - 230, 0.60, vec3{0.984, 0.945, 0.933});
 
                 string i2 = ">> Press esc to exit";
-                this->fontRenderer->renderText(i2, width / 4 - (6 * i2.length()), height - 270, 0.62, vec3{0.984, 0.945, 0.933});
+                this->fontRenderer->renderText(i2, leftAlign, height - 230 - verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i3 = ">> Press the left arrow key to return home";
+                this->fontRenderer->renderText(i3, leftAlign, height - 230 - 2 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
             } else {
                 showText = false;
