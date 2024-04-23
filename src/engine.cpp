@@ -205,13 +205,13 @@ void Engine::render() {
             // Check if 5 seconds have passed to hide the text
             if (elapsedTime < 5.0f) {
 
-                glClearColor(0.913f,0.662f,0.784f,1.0f); // Light blue background
+                glClearColor(0.596f, 0.714f, 0.929f, 1.0f); // Light blue background
                 // Clear the color buffer
                 glClear(GL_COLOR_BUFFER_BIT);
 
                 string title = "Instructions";
                 // Displayed at top of screen
-                this->fontRenderer->renderText(title, width / 1.8 - (20 * title.length()), height / 1.25, 1.5, vec3{0.49, 0.596, 0.788});
+                this->fontRenderer->renderText(title, width / 1.8 - (20 * title.length()), height / 1.25, 1.5, vec3{0.996, 0.796, 0.243});
 
                 // Each instruction
                 string i1 = ">> Simply click on the keys to produce sound";

@@ -29,6 +29,7 @@ Main Screens:
 
 Instructions:
 - 0.808, 0.396, 0.667 (blue background)
+- 0.996, 0.796, 0.243 (yellow title)
 - 0.984, 0.945, 0.933 (off white text)
 
 ## Concepts
