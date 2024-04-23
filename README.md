@@ -17,7 +17,7 @@ the next note of the song. After finishing, the computer will play the song one
 more time all the way through, then the user will have to also play the song all
 the way through; if they do this correctly the practice rounds concludes and the
 screen exits to the main menu, if the user doesn't correctly play all the keys, the
-practice restarts. If the esc key is pressed at any point, the user will exit to the
+practice restarts. If the back key is pressed at any point, the user will exit to the
 main menu.
 ## Color Palette
 
