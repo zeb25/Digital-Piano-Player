@@ -1,6 +1,6 @@
 #include "engine.h"
 
-enum state {start, play, over};
+enum state {start, fun, practice, over};
 state screen;
 
 // Instructions variables to keep track of the elapsed time
@@ -97,11 +97,11 @@ void Engine::processInput() {
     // Mouse position saved to check for collisions
     glfwGetCursorPos(window, &MouseX, &MouseY);
 
-    // TODO: If we're in the start screen and the user presses s, change screen to play
+    // TODO: If we're in the start screen and the user presses s, change screen to fun
     if (screen == start && keys[GLFW_KEY_S])
-        screen = play;
+        screen = fun;
 
-//    // TODO: If we're in the play screen and an arrow key is pressed, move the spawnButton
+//    // TODO: If we're in the fun screen and an arrow key is pressed, move the spawnButton
 //    // Hint: one of the indices is GLFW_KEY_UP
 //    if(screen == play && keys[GLFW_KEY_UP] && spawnButton->getPosY() <= 600){
 //        spawnButton->moveY(1);
@@ -123,18 +123,18 @@ void Engine::processInput() {
     bool buttonOverlapsMouse = spawnButton->isOverlapping(vec2(MouseX, MouseY));
     bool mousePressed = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 
-    // TODO: When in play screen, if the user hovers or clicks on the button then change the spawnButton's color
+    // TODO: When in fun screen, if the user hovers or clicks on the button then change the spawnButton's color
     // Hint: look at the color objects declared at the top of this file
-    if(screen == play && (buttonOverlapsMouse || mousePressed)){
+    if(screen == fun && (buttonOverlapsMouse || mousePressed)){
         spawnButton->setRed(100);
     }
-    // TODO: When in play screen, if the button was released then spawn confetti
+    // TODO: When in fun screen, if the button was released then spawn confetti
     // Hint: the button was released if it was pressed last frame and is not pressed now
-    if(screen == play && mousePressed == false && mousePressedLastFrame == true){
+    if(screen == fun && mousePressed == false && mousePressedLastFrame == true){
         spawnConfetti();
     }
     // TODO: Make sure the spawn button is its original color when the user is not hovering or clicking on it.
-    if(screen == play && !(buttonOverlapsMouse && mousePressed)){
+    if(screen == fun && !(buttonOverlapsMouse && mousePressed)){
         spawnButton->setRed(10);
     }
 
@@ -206,7 +206,7 @@ void Engine::render() {
 
 
         //TODO: Change case name to fun screen
-        case play: {
+        case fun: {
 
             // Check if 5 seconds have passed to hide the text
             if (elapsedTime < 5.0f) {
@@ -219,20 +219,8 @@ void Engine::render() {
                 // Displayed at top of screen
                 this->fontRenderer->renderText(title, width / 1.8 - (20 * title.length()), height / 1.25, 1.5, vec3{0.996, 0.796, 0.243});
 
-//                // Each instruction
-//                string i1 = ">> Simply click on the piano keys to produce sound";
-//                this->fontRenderer->renderText(i1, width / 2.7 - (5 * i1.length()), height - 230, 0.62, vec3{0.984, 0.945, 0.933});
-//
-//                string i2 = ">> Press esc to exit";
-//                this->fontRenderer->renderText(i2, width / 4 - (6 * i2.length()), height - 270, 0.62, vec3{0.984, 0.945, 0.933});
-//
-//                string i3 = ">> Press the left arrow key at any point to return to the home screen";
-//                this->fontRenderer->renderText(i3, width / 1 - (40 * i3.length()), height - 310, 0.40, vec3{0.984, 0.945, 0.933});
-
-
                 int leftAlign = 50;
                 int verticalSpacing = 40;
-
                 string i1 = ">> Simply click on the piano keys to produce sound";
                 this->fontRenderer->renderText(i1, leftAlign, height - 230, 0.60, vec3{0.984, 0.945, 0.933});
 
