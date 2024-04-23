@@ -160,13 +160,41 @@ void Engine::render() {
 
     // Render differently depending on screen
     switch (screen) {
+
         case start: {
-            string message = "Press s to start";
+            // Set background color
+            glClearColor(0.913f, 0.662f, 0.784f, 1.0f); // Light pink
+            // Clear the color buffer
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            string title = "Piano Play";
+            // Displayed at top of screen
+            this->fontRenderer->renderText(title, width / 2 - (20 * title.length()), height / 1.25, 1.75, vec3{1, 1, 1});
+
+            // Each instruction
+            string sentence1 = "Welcome to our interactive piano practice program!";
+            string sentence2 = "Play for fun or practice a short song";
+            //string sentence3 = "Switch off all the lights with the least number of clicks.";
+
+            // Positioning, size, color
+            this->fontRenderer->renderText(sentence1, width / 6.5 - (5 * title.length()), height / 2 + 50, 0.58,vec3{0.808, 0.396, 0.667});
+            this->fontRenderer->renderText(sentence2, width / 6.5 - (5 * title.length()), height / 2, 0.58, vec3{0.808, 0.396, 0.667});
+            //this->fontRenderer->renderText(sentence3, width / 6.5 - (5 * title.length()), height / 2 - 50, 0.5,vec3{0.871, 0.055, 0.8});
+
+            string fun = "Press S to play for fun";
             // (12 * message.length()) is the offset to center text.
             // 12 pixels is the width of each character scaled by 1.
-            this->fontRenderer->renderText(message, width/2 - (12 * message.length()), height/2, 1, vec3{1, 1, 1});
+            this->fontRenderer->renderText(fun, width / 2 - (12 * fun.length()), height / 5, 0.9, vec3{0.604, 0.325, 0.6});
+
+        //TODO: configure P key to bring user to practice screen
+            string practice = "Press P to practice a song";
+            // (12 * message.length()) is the offset to center text.
+            // 12 pixels is the width of each character scaled by 1.
+            this->fontRenderer->renderText(practice, width / 2 - (12 * practice.length()), height / 5 + 50, 0.9, vec3{0.604, 0.325, 0.6});
             break;
         }
+        //TODO: Instructions for both screens (fun and practice)
+
         case play: {
             // TODO: call setUniforms and draw on the spawnButton and all of the confetti pieces
             //  Hint: make sure you draw the spawn button after the confetti to make it appear on top
