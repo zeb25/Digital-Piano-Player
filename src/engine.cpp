@@ -71,6 +71,26 @@ void Engine::initShaders() {
 }
 
 void Engine::initShapes() {
+
+    // outline/hover
+    // Play button position
+    vec2 buttonPos1 = {width / 2 - 25, height - 80};
+    this->purpleButtonVec.push_back(make_unique<Rect>(shapeShader, buttonPos1, vec2{90, 90}, color{74, 20, 140, 1}));
+
+    // Practice button position
+    vec2 buttonPos2 = {width / 2 + 25, height - 80};
+    this->purpleButtonVec.push_back(make_unique<Rect>(shapeShader, buttonPos2, vec2{90, 90}, color{74, 20, 140, 1}));
+
+    // Play button position
+    vec2 buttonPos3 = {width / 2 - 25, height - 80};
+    this->purpleButtonVec.push_back(make_unique<Rect>(shapeShader, buttonPos3, vec2{80, 80}, color{1, 1, 1, 1}));
+
+    // Practice button position
+    vec2 buttonPos4 = {width / 2 + 25, height - 80};
+    this->purpleButtonVec.push_back(make_unique<Rect>(shapeShader, buttonPos4, vec2{80, 80}, color{1, 1, 1, 1}));
+
+
+
     // red spawn button centered in the top left corner
     spawnButton = make_unique<Rect>(shapeShader, vec2{width/2,height/2}, vec2{100, 50}, color{1, 0, 0, 1});
 }
@@ -96,6 +116,20 @@ void Engine::processInput() {
 
     // Mouse position saved to check for collisions
     glfwGetCursorPos(window, &MouseX, &MouseY);
+
+    // Check if the mouse hovers over purple buttons and change their color accordingly
+    for (const auto& purplebutton : purpleButtonVec) {
+        bool buttonOverlapsMouse = purplebutton->isOverlapping(vec2(MouseX, MouseY));
+        if (buttonOverlapsMouse) {
+            // Change color of the red button to make it visible
+            purplebutton->setColor(color{74, 20, 140, 1});
+        } else {
+            // Change color back to black when the mouse is not hovering over it
+            purplebutton->setColor(color{0, 0, 0, 1});
+        }
+    }
+
+
 
     // If we're in the start screen and the user presses s, change screen to fun
     if (screen == start && keys[GLFW_KEY_S])
@@ -184,11 +218,21 @@ void Engine::render() {
             string sentence1 = "Welcome to our interactive piano practice program!";
             string sentence2 = "Play for fun or practice a short song";
             //string sentence3 = "Switch off all the lights with the least number of clicks.";
-
             // Positioning, size, color
             this->fontRenderer->renderText(sentence1, width / 6.5 - (5 * title.length()), height / 2 + 50, 0.58,vec3{0.808, 0.396, 0.667});
             this->fontRenderer->renderText(sentence2, width / 6.5 - (5 * title.length()), height / 2, 0.58, vec3{0.808, 0.396, 0.667});
             //this->fontRenderer->renderText(sentence3, width / 6.5 - (5 * title.length()), height / 2 - 50, 0.5,vec3{0.871, 0.055, 0.8});
+
+            //Set up all buttons and outlines
+            for (const unique_ptr<Shape> &b: purpleButtonVec) {
+                b->setUniforms();
+                b->draw();
+            }
+
+            for (const unique_ptr<Shape> &b: buttonVec) {
+                b->setUniforms();
+                b->draw();
+            }
 
             string fun = "Press S to play for fun";
             // (12 * message.length()) is the offset to center text.

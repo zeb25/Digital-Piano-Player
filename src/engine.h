@@ -41,6 +41,9 @@ private:
     unique_ptr<Shape> spawnButton;
     vector<unique_ptr<Shape>> confetti;
 
+    vector<unique_ptr<Shape>> buttonVec;
+    vector<unique_ptr<Shape>> purpleButtonVec;
+
     // Shaders
     Shader shapeShader;
     Shader textShader;
@@ -110,6 +113,7 @@ public:
     mat4 PROJECTION = ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height), -1.0f, 1.0f);
     // 1st quadrant
 //        mat4 PROJECTION = ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height));
+
 
 };
 
