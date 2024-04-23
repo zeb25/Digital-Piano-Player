@@ -10,7 +10,6 @@ bool showText = true;
 // Colors
 color originalFill, hoverFill, pressFill;
 
-
 Engine::Engine() : keys() {
     this->initWindow();
     this->initShaders();
@@ -197,12 +196,17 @@ void Engine::render() {
             // (12 * message.length()) is the offset to center text.
             // 12 pixels is the width of each character scaled by 1.
             this->fontRenderer->renderText(practice, width / 2 - (12 * practice.length()), height / 5 + 50, 0.9, vec3{0.604, 0.325, 0.6});
+
+            // Reset elapsedTime every time user is on start screen
+            elapsedTime = 0.0f;
             break;
+
         }
+
+
 
         //TODO: Change case name to fun screen
         case play: {
-            // Instructions
 
             // Check if 5 seconds have passed to hide the text
             if (elapsedTime < 5.0f) {
