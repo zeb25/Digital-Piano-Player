@@ -273,7 +273,7 @@ void Engine::render() {
                 string i2 = "   highlight each key played on the keyboard";
                 this->fontRenderer->renderText(i2, leftAlign, initialVerticalPosition - verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
-                string i3 = ">> Next, it's your turn! Click on the";
+                string i3 = ">> Now, it's your turn! Click on the";
                 this->fontRenderer->renderText(i3, leftAlign, initialVerticalPosition - 2 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
                 string i4 = "    highlighted keys as they appear";
