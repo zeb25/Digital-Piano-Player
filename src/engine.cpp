@@ -211,9 +211,14 @@ void Engine::render() {
             break;
         }
         case over: {
+            // Set background color
+            glClearColor(0.913f, 0.662f, 0.784f, 1.0f); // Light pink
+            // Clear the color buffer
+            glClear(GL_COLOR_BUFFER_BIT);
+
             string message = "You win!";
             // TODO: Display the message on the screen
-            this->fontRenderer->renderText(message, width/2 - (12 * message.length()), height/2, 1, vec3{1, 1, 1});
+            this->fontRenderer->renderText(message, width/2 - (12 * message.length()), height/2, 1, vec3{0.604, 0.325, 0.6});
             break;
         }
     }
