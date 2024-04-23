@@ -226,10 +226,10 @@ void Engine::render() {
                 string i1 = ">> Simply click on the piano keys to produce sound";
                 this->fontRenderer->renderText(i1, leftAlign, height - 230, 0.60, vec3{0.984, 0.945, 0.933});
 
-                string i2 = ">> Press esc to exit";
+                string i2 = ">> Press the left arrow key to return home";
                 this->fontRenderer->renderText(i2, leftAlign, height - 230 - verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
-                string i3 = ">> Press the left arrow key to return home";
+                string i3 = ">> Press esc to exit";
                 this->fontRenderer->renderText(i3, leftAlign, height - 230 - 2 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
             } else {
@@ -291,10 +291,10 @@ void Engine::render() {
                 string i8 = "   to win";
                 this->fontRenderer->renderText(i8, leftAlign, initialVerticalPosition - 7 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
-                string i9 = ">> Press esc to exit";
+                string i9 = ">> Press the left arrow key to return home";
                 this->fontRenderer->renderText(i9, leftAlign, initialVerticalPosition - 8 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
-                string i10 = ">> Press the left arrow key to return home";
+                string i10 = ">> Press esc to exit";
                 this->fontRenderer->renderText(i10, leftAlign, initialVerticalPosition - 9 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
 
