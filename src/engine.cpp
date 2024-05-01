@@ -3,6 +3,10 @@
 enum state {start, freePlay, gamePlay, over};
 state screen;
 
+// Instructions variables to keep track of the elapsed time
+float elapsedTime = 0.0f;
+bool showText = true;
+
 // Colors
 color originalFill, hoverFill, pressFill;
 
@@ -52,6 +56,7 @@ unsigned int Engine::initWindow(bool debug) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glfwSwapInterval(1);
 
+    // Audio stream errors
     if( paInit.result() != paNoError ) {
         fprintf( stderr, "An error occurred while using the portaudio stream\n" );
         fprintf( stderr, "Error number: %d\n", paInit.result() );
@@ -103,6 +108,10 @@ void Engine::processInput() {
         sine.stop();
         sine.close();
     }
+
+    // Go back to start screen if left arrow key is pressed
+    if (keys[GLFW_KEY_LEFT])
+        screen = start;
 
     // Mouse position saved to check for collisions
     glfwGetCursorPos(window, &MouseX, &MouseY);
@@ -185,31 +194,32 @@ void Engine::render() {
             glClearColor(0.913f, 0.662f, 0.784f, 1.0f); // Light pink
             // Clear the color buffer
             glClear(GL_COLOR_BUFFER_BIT);
-
             string title = "Piano Play";
             // Displayed at top of screen
-            this->fontRenderer->renderText(title, width / 2 - (20 * title.length()), height / 1.25, 1.75, vec3{1, 1, 1});
-
-            // Each instruction
+            this->fontRenderer->renderText(title, width / 2 - (20 * title.length()), height / 1.25, 1.75,
+                                           vec3{1, 1, 1});
+            // Each sentence
             string sentence1 = "Welcome to our interactive piano practice program!";
             string sentence2 = "Play for fun or practice a short song";
             //string sentence3 = "Switch off all the lights with the least number of clicks.";
-
             // Positioning, size, color
-            this->fontRenderer->renderText(sentence1, width / 6.5 - (5 * title.length()), height / 2 + 50, 0.58,vec3{0.808, 0.396, 0.667});
-            this->fontRenderer->renderText(sentence2, width / 6.5 - (5 * title.length()), height / 2, 0.58, vec3{0.808, 0.396, 0.667});
+            this->fontRenderer->renderText(sentence1, width / 6.5 - (5 * title.length()), height / 2 + 50, 0.58,
+                                           vec3{0.808, 0.396, 0.667});
+            this->fontRenderer->renderText(sentence2, width / 6.5 - (5 * title.length()), height / 2, 0.58,
+                                           vec3{0.808, 0.396, 0.667});
             //this->fontRenderer->renderText(sentence3, width / 6.5 - (5 * title.length()), height / 2 - 50, 0.5,vec3{0.871, 0.055, 0.8});
-
             string fun = "Press S to play for fun";
             // (12 * message.length()) is the offset to center text.
             // 12 pixels is the width of each character scaled by 1.
-            this->fontRenderer->renderText(fun, width / 2 - (12 * fun.length()), height / 5, 0.9, vec3{0.604, 0.325, 0.6});
-
-        //TODO: configure P key to bring user to practice screen
+            this->fontRenderer->renderText(fun, width / 2 - (12 * fun.length()), height / 5, 0.9,
+                                           vec3{0.604, 0.325, 0.6});
             string practice = "Press P to practice a song";
             // (12 * message.length()) is the offset to center text.
             // 12 pixels is the width of each character scaled by 1.
-            this->fontRenderer->renderText(practice, width / 2 - (12 * practice.length()), height / 5 + 50, 0.9, vec3{0.604, 0.325, 0.6});
+            this->fontRenderer->renderText(practice, width / 2 - (12 * practice.length()), height / 5 + 50, 0.9,
+                                           vec3{0.604, 0.325, 0.6});
+            // Reset elapsedTime every time user is on start screen
+            elapsedTime = 0.0f;
 
             if (!isPlaying) {
                 sine.start();
@@ -218,12 +228,79 @@ void Engine::render() {
             break;
         }
 
-        //TODO: Instructions for both screens (fun and practice)
-
         case freePlay: {
-            // TODO: call setUniforms and draw on the spawnButton and all of the confetti pieces
-            //  Hint: make sure you draw the spawn button after the confetti to make it appear on top
-            // Render font on top of spawn button
+            // Check if 5 seconds have passed to hide the text
+            if (elapsedTime < 5.0f) {
+                glClearColor(0.596f, 0.714f, 0.929f, 1.0f); // Light blue background
+                // Clear the color buffer
+                glClear(GL_COLOR_BUFFER_BIT);
+                string title = "How to play";
+                // Displayed at top of screen
+                this->fontRenderer->renderText(title, width / 1.8 - (20 * title.length()), height / 1.2, 1.5, vec3{0.996, 0.796, 0.243});
+                int leftAlign = 50;
+                int verticalSpacing = 40;
+                string i1 = ">> Simply click on the piano keys to produce sound";
+                this->fontRenderer->renderText(i1, leftAlign, height - 230, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i2 = ">> Press the left arrow key to return home";
+                this->fontRenderer->renderText(i2, leftAlign, height - 230 - verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+                string i3 = ">> Press esc to exit";
+                this->fontRenderer->renderText(i3, leftAlign, height - 230 - 2 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+            } else {
+                showText = false;
+            }
+            // Increment the elapsed time
+            elapsedTime += deltaTime; // deltaTime is the time since the last frame
+            for(const unique_ptr<Shape>& r: confetti){
+                r->setUniforms();
+                r->draw();
+            }
+            spawnButton->setUniforms();
+            spawnButton->draw();
+            break;
+        }
+            //Add a practice screen here
+        case gamePlay: {
+            // Check if 5 seconds have passed to hide the text
+            if (elapsedTime < 10.0f) {
+                glClearColor(0.596f, 0.714f, 0.929f, 1.0f); // Light blue background
+                // Clear the color buffer
+                glClear(GL_COLOR_BUFFER_BIT);
+                string title = "How to practice";
+                // Displayed at top of screen
+                this->fontRenderer->renderText(title, width / 1.8 - (20 * title.length()), height / 1.2, 1.5, vec3{0.996, 0.796, 0.243});
+                int leftAlign = 50;
+                int initialVerticalPosition = height - 160;
+                int verticalSpacing = 40;
+                string i1 = ">> The program will play the song first and ";
+                this->fontRenderer->renderText(i1, leftAlign, initialVerticalPosition, 0.60, vec3{0.984, 0.945, 0.933});
+                string i2 = "   highlight each key played on the keyboard";
+                this->fontRenderer->renderText(i2, leftAlign, initialVerticalPosition - verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+                string i3 = ">> Now, it's your turn! Click on the";
+                this->fontRenderer->renderText(i3, leftAlign, initialVerticalPosition - 2 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+                string i4 = "    highlighted keys as they appear";
+                this->fontRenderer->renderText(i4, leftAlign, initialVerticalPosition - 3 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+                string i5 = ">> Once you're done playing, the program will ";
+                this->fontRenderer->renderText(i5, leftAlign, initialVerticalPosition - 4 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+                string i6 = "   play the song one more time";
+                this->fontRenderer->renderText(i6, leftAlign, initialVerticalPosition - 5 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+                string i7 = ">> It's game time now! Play the song correctly";
+                this->fontRenderer->renderText(i7, leftAlign, initialVerticalPosition - 6 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+                string i8 = "   to win";
+                this->fontRenderer->renderText(i8, leftAlign, initialVerticalPosition - 7 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+                string i9 = ">> Press the left arrow key to return home";
+                this->fontRenderer->renderText(i9, leftAlign, initialVerticalPosition - 8 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+                string i10 = ">> Press esc to exit";
+                this->fontRenderer->renderText(i10, leftAlign, initialVerticalPosition - 9 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
+
+            } else {
+                showText = false;
+            }
+            // Increment the elapsed time
+            elapsedTime += deltaTime; // deltaTime is the time since the last frame
+
             for(const unique_ptr<Shape>& r: confetti){
                 r->setUniforms();
                 r->draw();
@@ -231,13 +308,7 @@ void Engine::render() {
             spawnButton->setUniforms();
             spawnButton->draw();
 
-            fontRenderer->renderText("Spawn", spawnButton->getPos().x - 30, spawnButton->getPos().y - 5, 0.5, vec3{1, 1, 1});
             break;
-        }
-        // TODO: set up game play screen
-        case gamePlay: {
-
-
         }
 
 
@@ -246,7 +317,6 @@ void Engine::render() {
             glClearColor(0.913f, 0.662f, 0.784f, 1.0f); // Light pink
             // Clear the color buffer
             glClear(GL_COLOR_BUFFER_BIT);
-
             string message = "You win!";
             // TODO: Display the message on the screen
             this->fontRenderer->renderText(message, width/2 - (12 * message.length()), height/2, 1, vec3{0.604, 0.325, 0.6});
