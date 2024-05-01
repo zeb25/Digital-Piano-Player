@@ -50,6 +50,16 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(freetype)
 
+
+# Fetch Port Audio
+FetchContent_Declare(
+        portaudio
+        URL https://files.portaudio.com/archives/pa_stable_v190700_20210406.tgz
+        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+)
+FetchContent_MakeAvailable(portaudio)
+
+
 # Fetch GLAD
 FetchContent_Declare(
     glad
@@ -106,4 +116,4 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS}
                                ${PROJECT_SHADERS} ${PROJECT_CONFIGS}
                                ${VENDORS_SOURCES})
 # Include libraries
-target_link_libraries(${PROJECT_NAME} glfw glm freetype)
+target_link_libraries(${PROJECT_NAME} glfw glm freetype portaudio)

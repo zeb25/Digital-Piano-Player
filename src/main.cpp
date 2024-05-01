@@ -1,10 +1,8 @@
 
 #include "engine.h"
-
 #include <iostream>
 
-
-int main(int argc, char *argv[]) {
+ int main(int argc, char *argv[]) {
     Engine engine;
 
     while (!engine.shouldClose()) {
@@ -16,3 +14,4 @@ int main(int argc, char *argv[]) {
     glfwTerminate();
     return 0;
 }
+
