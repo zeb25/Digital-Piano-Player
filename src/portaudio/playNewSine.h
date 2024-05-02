@@ -1,46 +1,3 @@
-/** @file paex_sine.c
-    @ingroup examples_src
-    @brief Play a sine wave for several seconds.
-    @author Ross Bencina <rossb@audiomulch.com>
-    @author Phil Burk <philburk@softsynth.com>
-*/
-/*
- * $Id: paex_sine.c 1752 2011-09-08 03:21:55Z philburk $
- *
- * This program uses the PortAudio Portable Audio Library.
- * For more information see: http://www.portaudio.com/
- * Copyright (c) 1999-2000 Ross Bencina and Phil Burk
- *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files
- * (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge,
- * publish, distribute, sublicense, and/or sell copies of the Software,
- * and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
- * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
- * ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
- * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-/*
- * The text above constitutes the entire PortAudio license; however,
- * the PortAudio community also makes the following non-binding requests:
- *
- * Any person wishing to distribute modifications to the Software is
- * requested to send the modifications to the original developer so that
- * they can be incorporated into the canonical version. It is also
- * requested that these non-binding requests be included along with the
- * license above.
- */
 #include <stdio.h>
 #include <math.h>
 #include "portaudio.h"
@@ -55,21 +12,16 @@
 
 #define TABLE_SIZE   (200)
 
-class Sine
-{
+class NewSine {
 public:
-    Sine() : stream(0), left_phase(0), right_phase(0)
-    {
+    NewSine() : stream(0), left_phase(0), right_phase(0) {
         /* initialise sinusoidal wavetable */
-        for( int i=0; i<TABLE_SIZE; i++ )
-        {
+        for( int i=0; i<TABLE_SIZE; i++ ) {
             sine[i] = (float) sin( ((double)i/(double)TABLE_SIZE) * M_PI * 2. );
         }
-
     }
 
-    bool open(PaDeviceIndex index)
-    {
+    bool open(PaDeviceIndex index) {
         PaStreamParameters outputParameters;
 
         outputParameters.device = index;
@@ -78,8 +30,7 @@ public:
         }
 
         const PaDeviceInfo* pInfo = Pa_GetDeviceInfo(index);
-        if (pInfo != 0)
-        {
+        if (pInfo != 0) {
             printf("Output device name: '%s'\r", pInfo->name);
         }
 
@@ -95,58 +46,46 @@ public:
                 SAMPLE_RATE,
                 paFramesPerBufferUnspecified,
                 paClipOff,      /* we won't output out of range samples so don't bother clipping them */
-                &Sine::paCallback,
+                &NewSine::paCallback,
                 this            /* Using 'this' for userData so we can cast to Sine* in paCallback method */
         );
 
-        if (err != paNoError)
-        {
+        if (err != paNoError) {
             /* Failed to open stream to device !!! */
             return false;
         }
 
-        err = Pa_SetStreamFinishedCallback( stream, &Sine::paStreamFinished );
+        err = Pa_SetStreamFinishedCallback( stream, &NewSine::paStreamFinished );
 
-        if (err != paNoError)
-        {
+        if (err != paNoError) {
             Pa_CloseStream( stream );
             stream = 0;
 
             return false;
         }
-
         return true;
     }
 
-    bool close()
-    {
+    bool close() {
         if (stream == 0)
             return false;
-
         PaError err = Pa_CloseStream( stream );
         stream = 0;
-
         return (err == paNoError);
     }
 
-
-    bool start()
-    {
+    bool start() {
         if (stream == 0)
             return false;
 
         PaError err = Pa_StartStream( stream );
-
         return (err == paNoError);
     }
 
-    bool stop()
-    {
+    bool stop() {
         if (stream == 0)
             return false;
-
         PaError err = Pa_StopStream( stream );
-
         return (err == paNoError);
     }
 
@@ -155,8 +94,7 @@ private:
     int paCallbackMethod(const void *inputBuffer, void *outputBuffer,
                          unsigned long framesPerBuffer,
                          const PaStreamCallbackTimeInfo* timeInfo,
-                         PaStreamCallbackFlags statusFlags)
-    {
+                         PaStreamCallbackFlags statusFlags) {
         float *out = (float*)outputBuffer;
         unsigned long i;
 
@@ -164,8 +102,7 @@ private:
         (void) statusFlags;
         (void) inputBuffer;
 
-        for( i=0; i<framesPerBuffer; i++ )
-        {
+        for( i=0; i<framesPerBuffer; i++ ) {
             *out++ = sine[left_phase];  /* left */
             *out++ = sine[right_phase];  /* right */
             left_phase += 1;
@@ -178,36 +115,31 @@ private:
 
     }
 
-    /* This routine will be called by the PortAudio engine when audio is needed.
-    ** It may called at interrupt level on some machines so don't do anything
-    ** that could mess up the system like calling malloc() or free().
-    */
+    // callback function that is called by the PortAudio engine
+    // whenever it has captured audio data, or when it needs more audio data for output
     static int paCallback( const void *inputBuffer, void *outputBuffer,
                            unsigned long framesPerBuffer,
                            const PaStreamCallbackTimeInfo* timeInfo,
                            PaStreamCallbackFlags statusFlags,
-                           void *userData )
-    {
+                           void *userData ) {
         /* Here we cast userData to Sine* type so we can call the instance method paCallbackMethod, we can do that since
            we called Pa_OpenStream with 'this' for userData */
-        return ((Sine*)userData)->paCallbackMethod(inputBuffer, outputBuffer,
+        return ((NewSine*)userData)->paCallbackMethod(inputBuffer, outputBuffer,
                                                    framesPerBuffer,
                                                    timeInfo,
                                                    statusFlags);
     }
 
 
-    void paStreamFinishedMethod()
-    {
+    void paStreamFinishedMethod() {
         printf( "Stream Completed: %s\n", message );
     }
 
     /*
      * This routine is called by portaudio when playback is done.
      */
-    static void paStreamFinished(void* userData)
-    {
-        return ((Sine*)userData)->paStreamFinishedMethod();
+    static void paStreamFinished(void* userData) {
+        return ((NewSine*)userData)->paStreamFinishedMethod();
     }
 
     PaStream *stream;
@@ -217,17 +149,13 @@ private:
     char message[20];
 };
 
-class ScopedPaHandler
-{
+class ScopedPaHandler {
 public:
     ScopedPaHandler()
-            : _result(Pa_Initialize())
-    {
+            : _result(Pa_Initialize()) {
     }
-    ~ScopedPaHandler()
-    {
-        if (_result == paNoError)
-        {
+    ~ScopedPaHandler() {
+        if (_result == paNoError) {
             Pa_Terminate();
         }
     }

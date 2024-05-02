@@ -17,7 +17,6 @@ Engine::Engine() : keys() {
     this->initWindow();
     this->initShaders();
     this->initShapes();
-// TODO:
 
     originalFill = {1, 0, 0, 1};
     hoverFill.vec = originalFill.vec + vec4{0.5, 0.5, 0.5, 0};
@@ -66,6 +65,8 @@ unsigned int Engine::initWindow(bool debug) {
 
     sine.open(Pa_GetDefaultOutputDevice());
 
+    sound_engine.run();
+
     return 0;
 }
 
@@ -89,6 +90,8 @@ void Engine::initShaders() {
 void Engine::initShapes() {
     // red spawn button centered in the top left corner
     spawnButton = make_unique<Rect>(shapeShader, vec2{width/2,height/2}, vec2{100, 50}, color{1, 0, 0, 1});
+
+    // TODO: add keyboard shapes
 }
 
 void Engine::processInput() {
@@ -107,39 +110,36 @@ void Engine::processInput() {
         glfwSetWindowShouldClose(window, true);
         sine.stop();
         sine.close();
+        sound_engine.stopSine();
     }
 
     // Go back to start screen if left arrow key is pressed
-    if (keys[GLFW_KEY_LEFT])
+    if (keys[GLFW_KEY_LEFT]) {
         screen = start;
+        sound_engine.stopSine();
+    }
 
     // Mouse position saved to check for collisions
     glfwGetCursorPos(window, &MouseX, &MouseY);
 
     // If we're in the start screen and the user presses s, change screen to free play screen
-    if (screen == start && keys[GLFW_KEY_S])
+    if (screen == start && keys[GLFW_KEY_S]) {
         screen = freePlay;
+        sine.stop();
+        sound_engine.makeSine();
+    }
 
     // If we're in the start screen and the user presses p, change screen to play the games activity
-    if (screen == start && keys[GLFW_KEY_P])
+    if (screen == start && keys[GLFW_KEY_P]) {
         screen = gamePlay;
+        sine.stop();
+        // sound_engine.makeSine();
+    }
 
     // TODO: If we're in the freePlay screen, keyboard should appear
 
     // TODO: If we're in the gamePlay screen, instructions appear for 20 seconds and then keyboard appears
 
-//    if(screen == play && keys[GLFW_KEY_UP] && spawnButton->getPosY() <= 600){
-//        spawnButton->moveY(1);
-//    }
-//    if(screen == play && keys[GLFW_KEY_DOWN] && spawnButton->getPosY() >= 0){
-//        spawnButton->moveY(-1);
-//    }
-//    if(screen == play && keys[GLFW_KEY_LEFT] && spawnButton->getPosX() >= 0){
-//        spawnButton->moveX(-1);
-//    }
-//    if(screen == play && keys[GLFW_KEY_RIGHT] && spawnButton->getPosX() <= 800){
-//        spawnButton->moveX(1);
-//    }
 
     // Mouse position is inverted because the origin of the window is in the top left corner
     MouseY = height - MouseY; // Invert y-axis of mouse position
@@ -159,6 +159,19 @@ void Engine::processInput() {
     // TODO: Make sure the key is its original color when the user is not hovering or clicking on it.
     if(screen == freePlay && !(buttonOverlapsMouse && mousePressed)){
         spawnButton->setRed(10);
+    }
+
+    if(screen == gamePlay) {
+        // if mousepressed now and not pressed last frame
+            // make sound
+        if (buttonOverlapsMouse && mousePressed && !mousePressedLastFrame) {
+            sound_engine.makeSine();
+        }
+        // if mousepressed now false and it was pressed last frame
+            // stop sound
+        if (buttonOverlapsMouse && !mousePressed && mousePressedLastFrame) {
+            sound_engine.stopSine();
+        }
     }
 
     // Save mousePressed for next frame

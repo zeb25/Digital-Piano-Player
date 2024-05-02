@@ -11,6 +11,7 @@
 #include "shapes/rect.h"
 #include "shapes/shape.h"
 #include "portaudio/playSine.h"
+#include "portaudio/soundEngine.h"
 
 using std::vector, std::unique_ptr, std::make_unique, glm::ortho, glm::mat4, glm::vec3, glm::vec4;
 
@@ -56,6 +57,9 @@ private:
 #define glCheckError() glCheckError_(__FILE__, __LINE__)
 
 public:
+
+    SoundEngine sound_engine;
+
     Sine sine;
 
     ScopedPaHandler paInit;
