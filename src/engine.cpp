@@ -101,6 +101,7 @@ void Engine::initShapes() {
     float blackKeyWidth = 85; // Arbitrary fraction of white key width for black keys
     float blackKeyHeight = height / 3; // Arbitrary height for black keys
     for(int i = 150; i <= 650; i += 100) {
+        // Skip third index
         if (i == 350) {
             continue;
         }
