@@ -88,7 +88,7 @@ void Engine::initShapes() {
     // TODO: fix keyboard shapes
 
     // Width of each piano key
-    double keyWidth = 100; // Dividing the screen into 7 keys
+    double keyWidth = 90; // Dividing the screen into 7 keys
 
     // Add white keys (naturals)
     for(int i = 100; i <= 700; i += 100) {
@@ -98,7 +98,7 @@ void Engine::initShapes() {
     }
 
     // Add black keys (sharps/flats)
-    float blackKeyWidth = 100; // Arbitrary fraction of white key width for black keys
+    float blackKeyWidth = 85; // Arbitrary fraction of white key width for black keys
     float blackKeyHeight = height / 3; // Arbitrary height for black keys
     for(int i = 150; i <= 650; i += 100) {
         if (i == 350) {
@@ -170,12 +170,12 @@ void Engine::processInput() {
     }
 
     if(screen == gamePlay) {
-        // if mousepressed now and not pressed last frame
+        // if mouse pressed now and not pressed last frame
             // make sound
         if (keyOverlapsMouse && mousePressed && !mousePressedLastFrame) {
             sound_engine.makeSine(440);
         }
-        // if mousepressed now false and it was pressed last frame
+        // if mouse pressed now false and it was pressed last frame
             // stop sound
         if (keyOverlapsMouse && !mousePressed && mousePressedLastFrame) {
             sound_engine.stopSine(440);
