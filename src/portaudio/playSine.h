@@ -164,6 +164,8 @@ private:
         (void) statusFlags;
         (void) inputBuffer;
 
+
+        // TODO: make left and right phase numbers change in order to generate different sounds
         for( i=0; i<framesPerBuffer; i++ )
         {
             *out++ = sine[left_phase];  /* left */

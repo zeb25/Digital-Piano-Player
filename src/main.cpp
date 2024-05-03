@@ -7,8 +7,8 @@
 
     while (!engine.shouldClose()) {
         engine.processInput();
-        engine.update();
         engine.render();
+        engine.update();
     }
 
     glfwTerminate();

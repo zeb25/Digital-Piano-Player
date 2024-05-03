@@ -18,8 +18,7 @@
 
 #define TABLE_SIZE   (200)
 
-typedef struct
-{
+typedef struct {
     float sine[TABLE_SIZE];
     int phase;
 }
@@ -37,8 +36,7 @@ public:
         pressed = false;
 
         static unsigned long n = 0;
-        for(i = 0; i < TABLE_SIZE; i++, n++)
-        {
+        for(i = 0; i < TABLE_SIZE; i++, n++) {
             t = (double)i/(double)SAMPLE_RATE;
             data.sine[i] = 0;
             data.sine[i] = 0.3 * sin(2 * M_PI * FREQUENCY * t);
@@ -89,8 +87,7 @@ public:
         (void) statusFlags;
         (void) inputBuffer;
 
-        for( i=0; i<framesPerBuffer; i++ )
-        {
+        for( i=0; i<framesPerBuffer; i++ ) {
             sample = callData->sine[callData->phase++];
             *out++ = sample;  /* left */
             *out++ = sample;  /* right */
@@ -100,22 +97,19 @@ public:
         return paContinue;
     }
 
-    void makeSine() {
-        if(!pressed)
-        {
-            for(int i=0; i<TABLE_SIZE; i++)
-            {
-                data.sine[i] += 0.3*sin(2 * M_PI * 440 * ((double)i/(double)SAMPLE_RATE));
+    void makeSine(float frequency) {
+        if(!pressed) {
+            for(int i=0; i<TABLE_SIZE; i++) {
+                data.sine[i] += 0.3*sin(2 * M_PI * frequency * ((double)i/(double)SAMPLE_RATE));
             }
             pressed = true;
             error = Pa_StartStream( stream );
         }
     }
-    void stopSine() {
+    void stopSine(float frequency) {
         error = Pa_StopStream( stream );
-        for(int i=0; i<TABLE_SIZE; i++)
-        {
-            data.sine[i] -= 0.3*sin(2 * M_PI * 440 * ((double)i/(double)SAMPLE_RATE));
+        for(int i=0; i<TABLE_SIZE; i++) {
+            data.sine[i] -= 0.3*sin(2 * M_PI * frequency * ((double)i/(double)SAMPLE_RATE));
         }
         pressed = false;
     }

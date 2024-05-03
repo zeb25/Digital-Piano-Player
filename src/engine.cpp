@@ -10,9 +10,6 @@ bool showText = true;
 // Colors
 color originalFill, hoverFill, pressFill;
 
-// TODO Note: complete the drawing TODOs in render before the other TODOs,
-//  otherwise you won't be able to see if your code is correct
-
 Engine::Engine() : keys() {
     this->initWindow();
     this->initShaders();
@@ -63,8 +60,8 @@ unsigned int Engine::initWindow(bool debug) {
         return -1;
     }
 
+    // Opens sound streams
     sine.open(Pa_GetDefaultOutputDevice());
-
     sound_engine.run();
 
     return 0;
@@ -88,10 +85,29 @@ void Engine::initShaders() {
 }
 
 void Engine::initShapes() {
-    // red spawn button centered in the top left corner
-    spawnButton = make_unique<Rect>(shapeShader, vec2{width/2,height/2}, vec2{100, 50}, color{1, 0, 0, 1});
+    // TODO: fix keyboard shapes
 
-    // TODO: add keyboard shapes
+    // Width of each piano key
+    double keyWidth = 100; // Dividing the screen into 7 keys
+
+    // Add white keys (naturals)
+    for(int i = 100; i <= 700; i += 100) {
+        float keyX = i;
+        float keyY = height / 4;
+        piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{keyWidth, height / 2}, color{1, 1, 1, 1}));
+    }
+
+    // Add black keys (sharps/flats)
+    float blackKeyWidth = 100; // Arbitrary fraction of white key width for black keys
+    float blackKeyHeight = height / 3; // Arbitrary height for black keys
+    for(int i = 150; i <= 650; i += 100) {
+        if (i == 350) {
+            continue;
+        }
+        float keyX = i;
+        float keyY = height / 4 * 1.5; // Offset from white keys
+        piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{blackKeyWidth, blackKeyHeight}, color{0, 0, 0, 1}));
+    }
 }
 
 void Engine::processInput() {
@@ -110,13 +126,13 @@ void Engine::processInput() {
         glfwSetWindowShouldClose(window, true);
         sine.stop();
         sine.close();
-        sound_engine.stopSine();
+        //sound_engine.stopSine();
     }
 
     // Go back to start screen if left arrow key is pressed
     if (keys[GLFW_KEY_LEFT]) {
         screen = start;
-        sound_engine.stopSine();
+        //sound_engine.stopSine();
     }
 
     // Mouse position saved to check for collisions
@@ -126,7 +142,7 @@ void Engine::processInput() {
     if (screen == start && keys[GLFW_KEY_S]) {
         screen = freePlay;
         sine.stop();
-        sound_engine.makeSine();
+        // sound_engine.makeSine(400);
     }
 
     // If we're in the start screen and the user presses p, change screen to play the games activity
@@ -136,41 +152,46 @@ void Engine::processInput() {
         // sound_engine.makeSine();
     }
 
-    // TODO: If we're in the freePlay screen, keyboard should appear
-
-    // TODO: If we're in the gamePlay screen, instructions appear for 20 seconds and then keyboard appears
-
-
     // Mouse position is inverted because the origin of the window is in the top left corner
     MouseY = height - MouseY; // Invert y-axis of mouse position
-    bool buttonOverlapsMouse = spawnButton->isOverlapping(vec2(MouseX, MouseY));
+
+    // TODO: figure out how to check if mouse is overlapping any piano key
+    bool keyOverlapsMouse = piano[0]->isOverlapping(vec2(MouseX, MouseY)); // checks if mouse overlaps with first piano key
+
     bool mousePressed = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 
-    // TODO: When in freePlay screen, if the user hovers or clicks on any of the keys then change the key's color to highlight it
     // Hint: look at the color objects declared at the top of this file
-    if(screen == freePlay && (buttonOverlapsMouse || mousePressed)){
-        spawnButton->setRed(100);
+    if(screen == freePlay && (keyOverlapsMouse || mousePressed)){
+        // TODO: When in freePlay screen, if the user hovers or clicks on any of the keys then change the key's color to highlight it
     }
-    // TODO: When in play screen, if the key was released then play the note/sound
-    // Hint: the button was released if it was pressed last frame and is not pressed now
-    if(screen == freePlay && !mousePressed && mousePressedLastFrame){
-        spawnConfetti();
-    }
-    // TODO: Make sure the key is its original color when the user is not hovering or clicking on it.
-    if(screen == freePlay && !(buttonOverlapsMouse && mousePressed)){
-        spawnButton->setRed(10);
+
+    if(screen == freePlay && !(keyOverlapsMouse && mousePressed)){
+        // TODO: Make sure the key is its original color when the user is not hovering or clicking on it.
     }
 
     if(screen == gamePlay) {
         // if mousepressed now and not pressed last frame
             // make sound
-        if (buttonOverlapsMouse && mousePressed && !mousePressedLastFrame) {
-            sound_engine.makeSine();
+        if (keyOverlapsMouse && mousePressed && !mousePressedLastFrame) {
+            sound_engine.makeSine(440);
         }
         // if mousepressed now false and it was pressed last frame
             // stop sound
-        if (buttonOverlapsMouse && !mousePressed && mousePressedLastFrame) {
-            sound_engine.stopSine();
+        if (keyOverlapsMouse && !mousePressed && mousePressedLastFrame) {
+            sound_engine.stopSine(440);
+        }
+    }
+
+    if(screen == freePlay) {
+        // if mousepressed now and not pressed last frame
+        // make sound
+        if (keyOverlapsMouse && mousePressed && !mousePressedLastFrame) {
+            sound_engine.makeSine(880);
+        }
+        // if mousepressed now false and it was pressed last frame
+        // stop sound
+        if (keyOverlapsMouse && !mousePressed && mousePressedLastFrame) {
+            sound_engine.stopSine(880);
         }
     }
 
@@ -201,7 +222,6 @@ void Engine::render() {
 
     // Render differently depending on screen
     switch (screen) {
-
         case start: {
             // Set background color
             glClearColor(0.913f, 0.662f, 0.784f, 1.0f); // Light pink
@@ -243,7 +263,7 @@ void Engine::render() {
 
         case freePlay: {
             // Check if 5 seconds have passed to hide the text
-            if (elapsedTime < 5.0f) {
+            if (elapsedTime < 1.0f) { // TODO: change this back to 5.0 after testing
                 glClearColor(0.596f, 0.714f, 0.929f, 1.0f); // Light blue background
                 // Clear the color buffer
                 glClear(GL_COLOR_BUFFER_BIT);
@@ -266,18 +286,18 @@ void Engine::render() {
             }
             // Increment the elapsed time
             elapsedTime += deltaTime; // deltaTime is the time since the last frame
-            for(const unique_ptr<Shape>& r: confetti){
+            // Draw piano
+            for(const unique_ptr<Shape>& r: piano){
                 r->setUniforms();
                 r->draw();
             }
-            spawnButton->setUniforms();
-            spawnButton->draw();
+
             break;
         }
             //Add a practice screen here
         case gamePlay: {
             // Check if 5 seconds have passed to hide the text
-            if (elapsedTime < 10.0f) {
+            if (elapsedTime < 1.0f) { // TODO: change this back to 10.0 after testing
                 glClearColor(0.596f, 0.714f, 0.929f, 1.0f); // Light blue background
                 // Clear the color buffer
                 glClear(GL_COLOR_BUFFER_BIT);
@@ -314,12 +334,11 @@ void Engine::render() {
             // Increment the elapsed time
             elapsedTime += deltaTime; // deltaTime is the time since the last frame
 
-            for(const unique_ptr<Shape>& r: confetti){
+            // Draw piano
+            for(const unique_ptr<Shape>& r: piano){
                 r->setUniforms();
                 r->draw();
             }
-            spawnButton->setUniforms();
-            spawnButton->draw();
 
             break;
         }
