@@ -19,7 +19,7 @@ Engine::Engine() : keys() {
     pressFill = {0.82, 0.643, 0.941};
     hoverFill.vec = originalFill.vec + vec4{0.5, 0.5, 0.5, 0};
     //pressFill.vec = originalFill.vec - vec4{0.5, 0.5, 0.5, 0};
-    //pressFill.vec = originalFill.vec - vec4{1.0f - 0.82f, 1.0f - 0.643f, 1.0f - 0.941f, 0.0f};
+
 
     isPlaying = false;
 }
@@ -172,18 +172,30 @@ void Engine::processInput() {
                 if (key->isOverlapping(vec2(MouseX, MouseY))) {
                     keyOverlapsMouse = true;
                     key->setColor(pressFill); // Change color to highlight when key is clicked
+
+                    // Check if 1 second has elapsed
+                    if (elapsedTime >= 1.0f) {
+                        // Clear the color buffer
+                        key->setColor(pressFill);
+                        glClear(GL_COLOR_BUFFER_BIT);
+
+                    }
+
+
                     if (mousePressed) {
                         // Plays sound associated with the key
                         sound_engine.makeSine(5); //TODO: Change this sound
                     }
 
                 }
+
 //                else {
 //                    key->setColor(originalFill); // Reset color after next key is pressed
 //                }
             }
         }
     }
+
 
 
     if(screen == freePlay && !(keyOverlapsMouse && mousePressed)){
