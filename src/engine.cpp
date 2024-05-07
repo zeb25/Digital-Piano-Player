@@ -16,8 +16,10 @@ Engine::Engine() : keys() {
     this->initShapes();
 
     originalFill = {1, 0, 0, 1};
+    pressFill = {0.82, 0.643, 0.941};
     hoverFill.vec = originalFill.vec + vec4{0.5, 0.5, 0.5, 0};
-    pressFill.vec = originalFill.vec - vec4{0.5, 0.5, 0.5, 0};
+    //pressFill.vec = originalFill.vec - vec4{0.5, 0.5, 0.5, 0};
+    //pressFill.vec = originalFill.vec - vec4{1.0f - 0.82f, 1.0f - 0.643f, 1.0f - 0.941f, 0.0f};
 
     isPlaying = false;
 }
@@ -164,7 +166,25 @@ void Engine::processInput() {
     // Hint: look at the color objects declared at the top of this file
     if(screen == freePlay && (keyOverlapsMouse || mousePressed)){
         // TODO: When in freePlay screen, if the user hovers or clicks on any of the keys then change the key's color to highlight it
+        for (const auto& key : piano) {
+            bool keyOverlapsMouse = false; // Initialize as false
+            for (const auto& key : piano) {
+                if (key->isOverlapping(vec2(MouseX, MouseY))) {
+                    keyOverlapsMouse = true;
+                    key->setColor(pressFill); // Change color to highlight when key is clicked
+                    if (mousePressed) {
+                        // Plays sound associated with the key
+                        sound_engine.makeSine(5); //TODO: Change this sound
+                    }
+
+                }
+//                else {
+//                    key->setColor(originalFill); // Reset color after next key is pressed
+//                }
+            }
+        }
     }
+
 
     if(screen == freePlay && !(keyOverlapsMouse && mousePressed)){
         // TODO: Make sure the key is its original color when the user is not hovering or clicking on it.
