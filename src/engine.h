@@ -42,6 +42,7 @@ private:
     // Shapes
     vector<unique_ptr<Shape>> piano;
 
+    vector<unique_ptr<Shape>> keyVec;
     unique_ptr<Shape> spawnButton;
     vector<unique_ptr<Shape>> confetti;
 
@@ -100,6 +101,10 @@ public:
     /// @brief Renders the game state.
     /// @details Displays/renders objects on the screen.
     void render();
+
+    /// @brief Changes a specific key back to original color
+    /// @param the index to be changed
+    void resetKeyColor(int key);
 
     /* deltaTime variables */
     float deltaTime = 0.0f; // Time between current frame and last frame

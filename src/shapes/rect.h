@@ -32,6 +32,7 @@ public:
     float getRight() const override;
     float getTop() const override;
     float getBottom() const override;
+
 };
 
 

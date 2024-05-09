@@ -53,6 +53,9 @@ public:
     virtual float getBottom() const = 0;
 
     // Color Functions
+    color getColor() const {
+        return this->color;
+    }
     vec4 getColor4() const;
     vec3 getColor3() const;
     float getRed() const;
