@@ -90,46 +90,17 @@ void Engine::initShaders() {
     shapeShader.setMatrix4("projection", this->PROJECTION);
 }
 
-//void Engine::initShapes() {
-//    // TODO: fix keyboard shapes
-//
-//    // Width of each piano key
-//    double keyWidth = 90; // Dividing the screen into 7 keys
-//
-//    // Add white keys (naturals)
-//    for(int i = 100; i <= 700; i += 100) {
-//        float keyX = i;
-//        float keyY = height / 4;
-//        piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{keyWidth, height / 2}, color{1, 1, 1, 1}));
-//    }
-//
-//    // Add black keys (sharps/flats)
-//    float blackKeyWidth = 85; // Arbitrary fraction of white key width for black keys
-//    float blackKeyHeight = height / 3; // Arbitrary height for black keys
-//    for(int i = 150; i <= 650; i += 100) {
-//        // Skip third index
-//        if (i == 350) {
-//            continue;
-//        }
-//        float keyX = i;
-//        float keyY = height / 4 * 1.5; // Offset from white keys
-//        piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{blackKeyWidth, blackKeyHeight}, color{0, 0, 0, 1}));
-//    }
-//}
-
 void Engine::initShapes() {
+    // TODO: fix keyboard shapes
+
     // Width of each piano key
     double keyWidth = 90; // Dividing the screen into 7 keys
-
-    // Define colors for white and black keys
-    color whiteKeyColor = {1, 1, 1, 1}; // White color
-    color blackKeyColor = {0, 0, 0, 1}; // Black color
 
     // Add white keys (naturals)
     for(int i = 100; i <= 700; i += 100) {
         float keyX = i;
         float keyY = height / 4;
-        piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{keyWidth, height / 2}, whiteKeyColor));
+        piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{keyWidth, height / 2}, color{1, 1, 1, 1}));
     }
 
     // Add black keys (sharps/flats)
@@ -142,9 +113,10 @@ void Engine::initShapes() {
         }
         float keyX = i;
         float keyY = height / 4 * 1.5; // Offset from white keys
-        piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{blackKeyWidth, blackKeyHeight}, blackKeyColor));
+        piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{blackKeyWidth, blackKeyHeight}, color{0, 0, 0, 1}));
     }
 }
+
 
 void Engine::processInput() {
     glfwPollEvents();
@@ -198,29 +170,29 @@ void Engine::processInput() {
     bool mousePressed = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 
 //     Hint: look at the color objects declared at the top of this file
-//    if(screen == freePlay && (keyOverlapsMouse || mousePressed)){
-//        // TODO: When in freePlay screen, if the user hovers or clicks on any of the keys then change the key's color to highlight it
-//        for (const auto& key : piano) {
-//            bool keyOverlapsMouse = false; // Initialize as false
-//            for (const auto& key : piano) {
-//                if (key->isOverlapping(vec2(MouseX, MouseY))) {
-//                    keyOverlapsMouse = true;
-//                    key->setColor(pressFill); // Change color to highlight when key is clicked
-//
-//                    if (mousePressed) {
-//                        // Plays sound associated with the key
-//                        sound_engine.makeSine(5); //TODO: Change this sound
-//                    }
-//
+    if(screen == freePlay && (keyOverlapsMouse || mousePressed)){
+        // TODO: When in freePlay screen, if the user hovers or clicks on any of the keys then change the key's color to highlight it
+        for (const auto& key : piano) {
+            bool keyOverlapsMouse = false; // Initialize as false
+            for (const auto& key : piano) {
+                if (key->isOverlapping(vec2(MouseX, MouseY))) {
+                    keyOverlapsMouse = true;
+                    key->setColor(pressFill); // Change color to highlight when key is clicked
+
+                    if (mousePressed) {
+                        // Plays sound associated with the key
+                        sound_engine.makeSine(5); //TODO: Change this sound
+                    }
+
+                }
+
+//                else {
+//                    key->setColor(originalFill); // Reset color after next key is pressed
 //                }
-//
-////                else {
-////                    key->setColor(originalFill); // Reset color after next key is pressed
-////                }
-//            }
-//
-//        }
-//    }
+            }
+
+        }
+    }
 
 //    if (screen == freePlay && (keyOverlapsMouse || mousePressed)) {
 //        // Iterate through each key pointer in the piano
@@ -236,9 +208,10 @@ void Engine::processInput() {
 //                    // Plays sound associated with the key
 //                    sound_engine.makeSine(5); //TODO: Change this sound
 //                }
-//            } else {
+//            }
+//            else {
 //                // If the mouse does not overlap with the current key, reset its color
-//                resetKeyColor(key); //TODO: throwing error
+//                resetKeyColor(int); //TODO: throwing error
 //            }
 //        }
 //    }
