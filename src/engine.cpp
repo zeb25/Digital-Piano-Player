@@ -172,6 +172,8 @@ void Engine::processInput() {
 
 ////// EACH PIANO KEY IS REPRESENTED BY A KEY ON THE KEYBOARD //////
 
+//// WHITE KEYS ////
+
     if (screen == freePlay) {
         if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
             // Play sound associated with the "C" key
@@ -270,6 +272,78 @@ void Engine::processInput() {
             sound_engine.stopSine(261.63);
             if (!piano.empty()) {
                 piano[6]->setColor(whiteKey);
+            }
+        }
+    }
+
+    //// Black KEYS ////
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+            sound_engine.makeSine(261.63); //TODO: change this sound
+            if (!piano.empty()) {
+                piano[7]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(261.63);
+            if (!piano.empty()) {
+                piano[7]->setColor(blackKey);
+            }
+        }
+    }
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+            sound_engine.makeSine(261.63); //TODO: change this sound
+            if (!piano.empty()) {
+                piano[8]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(261.63);
+            if (!piano.empty()) {
+                piano[8]->setColor(blackKey);
+            }
+        }
+    }
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
+            sound_engine.makeSine(261.63); //TODO: change this sound
+            if (!piano.empty()) {
+                piano[9]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(261.63);
+            if (!piano.empty()) {
+                piano[9]->setColor(blackKey);
+            }
+        }
+    }
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+            sound_engine.makeSine(261.63); //TODO: change this sound
+            if (!piano.empty()) {
+                piano[10]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(261.63);
+            if (!piano.empty()) {
+                piano[10]->setColor(blackKey);
+            }
+        }
+    }
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
+            sound_engine.makeSine(261.63); //TODO: change this sound
+            if (!piano.empty()) {
+                piano[11]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(261.63);
+            if (!piano.empty()) {
+                piano[11]->setColor(blackKey);
             }
         }
     }
