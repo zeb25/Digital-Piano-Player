@@ -170,29 +170,29 @@ void Engine::processInput() {
     bool mousePressed = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 
 //     Hint: look at the color objects declared at the top of this file
-    if(screen == freePlay && (keyOverlapsMouse || mousePressed)){
-        // TODO: When in freePlay screen, if the user hovers or clicks on any of the keys then change the key's color to highlight it
-        for (const auto& key : piano) {
-            bool keyOverlapsMouse = false; // Initialize as false
-            for (const auto& key : piano) {
-                if (key->isOverlapping(vec2(MouseX, MouseY))) {
-                    keyOverlapsMouse = true;
-                    key->setColor(pressFill); // Change color to highlight when key is clicked
-
-                    if (mousePressed) {
-                        // Plays sound associated with the key
-                        sound_engine.makeSine(5); //TODO: Change this sound
-                    }
-
-                }
+//    if(screen == freePlay && (keyOverlapsMouse || mousePressed)){
+//        // TODO: When in freePlay screen, if the user hovers or clicks on any of the keys then change the key's color to highlight it
+//        for (const auto& key : piano) {
+//            bool keyOverlapsMouse = false; // Initialize as false
+//            for (const auto& key : piano) {
+//                if (key->isOverlapping(vec2(MouseX, MouseY))) {
+//                    keyOverlapsMouse = true;
+//                    key->setColor(pressFill); // Change color to highlight when key is clicked
+//
+//                    if (mousePressed) {
+//                        // Plays sound associated with the key
+//                        sound_engine.makeSine(5); //TODO: Change this sound
+//                    }
+//
+//                }
 
 //                else {
 //                    key->setColor(originalFill); // Reset color after next key is pressed
 //                }
-            }
-
-        }
-    }
+//            }
+//
+//        }
+//    }
 
 //    if (screen == freePlay && (keyOverlapsMouse || mousePressed)) {
 //        // Iterate through each key pointer in the piano
@@ -215,6 +215,112 @@ void Engine::processInput() {
 //            }
 //        }
 //    }
+
+////// EACH PIANO KEY IS REPRESENTED BY A KEY ON THE KEYBOARD //////
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+            // Play sound associated with the "C" key
+            sound_engine.makeSine(261.63); // C4
+            // Highlight C key when pressed
+            if (!piano.empty()) {
+                piano[0]->setColor(pressFill);
+            }
+        } else {
+            // Stop the sine wave associated with the "C" key
+            sound_engine.stopSine(261.63);
+            // Reset color
+            if (!piano.empty()) {
+                piano[0]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+            sound_engine.makeSine(293.66); //TODO: change this sound, it sounds awful rn
+            if (!piano.empty()) {
+                piano[1]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(293.66);
+            if (!piano.empty()) {
+                piano[1]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+            sound_engine.makeSine(261.63); //TODO: change this sound
+            if (!piano.empty()) {
+                piano[2]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(261.63);
+            if (!piano.empty()) {
+                piano[2]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+            sound_engine.makeSine(261.63); //TODO: change this sound
+            if (!piano.empty()) {
+                piano[3]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(261.63);
+            if (!piano.empty()) {
+                piano[3]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
+            sound_engine.makeSine(261.63); //TODO: change this sound
+            if (!piano.empty()) {
+                piano[4]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(261.63);
+            if (!piano.empty()) {
+                piano[4]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+            sound_engine.makeSine(261.63); //TODO: change this sound
+            if (!piano.empty()) {
+                piano[5]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(261.63);
+            if (!piano.empty()) {
+                piano[5]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == freePlay) {
+        if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
+            sound_engine.makeSine(261.63); //TODO: change this sound
+            if (!piano.empty()) {
+                piano[6]->setColor(pressFill);
+            }
+        } else {
+            sound_engine.stopSine(261.63);
+            if (!piano.empty()) {
+                piano[6]->setColor(whiteKey);
+            }
+        }
+    }
+
+
 
     if(screen == freePlay && !(keyOverlapsMouse && mousePressed)){
         // TODO: Make sure the key is its original color when the user is not hovering or clicking on it.
