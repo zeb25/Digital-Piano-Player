@@ -179,11 +179,6 @@ void Engine::processInput() {
 
     if (screen == freePlay) {
         if (keys['Z'] && !keysLastFrame['Z']) {
-            // Play sound associated with the "C" key
-            //sound_engine.makeSine(340.0); // C4
-//            sine.open(Pa_GetDefaultOutputDevice());
-//            sine.left_freq = 440.0f;
-//            sine.right_freq = 580.0f;
             sine.start();
 //            sounds[0].makeSine(460.0f);
             // Highlight C key when pressed
@@ -191,7 +186,6 @@ void Engine::processInput() {
                 piano[0]->setColor(pressFill);
             }
         } else if(!keys['Z'] && keysLastFrame['Z']) {
-            // Stop the sine wave associated with the "C" key
             sine.stop();
             //sound_engine.stopSine(340.0);
             //sounds[0].stopSine(460.0f);
@@ -204,10 +198,6 @@ void Engine::processInput() {
 
     if (screen == freePlay) {
         if (keys['X'] && !keysLastFrame['X']) {
-            //sound_engine.makeSine(340.0); // C4
-//            sine.open(Pa_GetDefaultOutputDevice());
-//            sine.left_freq = 440.0f;
-//            sine.right_freq = 580.0f;
             sine.start();
 //            sounds[0].makeSine(460.0f);
             // Highlight C key when pressed
@@ -215,7 +205,6 @@ void Engine::processInput() {
                 piano[1]->setColor(pressFill);
             }
         } else if(!keys['X'] && keysLastFrame['X']) {
-            // Stop the sine wave associated with the "C" key
             sine.stop();
             //sound_engine.stopSine(340.0);
             //sounds[0].stopSine(460.0f);
@@ -228,19 +217,12 @@ void Engine::processInput() {
 
     if (screen == freePlay) {
         if (keys['C'] && !keysLastFrame['C']) {
-            // Play sound associated with the "C" key
-            //sound_engine.makeSine(340.0); // C4
-//            sine.open(Pa_GetDefaultOutputDevice());
-//            sine.left_freq = 440.0f;
-//            sine.right_freq = 580.0f;
             sine.start();
-//            sounds[0].makeSine(460.0f);
             // Highlight C key when pressed
             if (!piano.empty()) {
                 piano[2]->setColor(pressFill);
             }
         } else if(!keys['C'] && keysLastFrame['C']) {
-            // Stop the sine wave associated with the "C" key
             sine.stop();
             //sound_engine.stopSine(340.0);
             //sounds[0].stopSine(460.0f);
@@ -252,13 +234,14 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63); //TODO: change this sound
+        if (keys['V'] && !keysLastFrame['V']) {
+            sine.start();
             if (!piano.empty()) {
                 piano[3]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(261.63);
+        } else if(!keys['V'] && keysLastFrame['V']) {
+            sine.stop();
+            // Reset color
             if (!piano.empty()) {
                 piano[3]->setColor(whiteKey);
             }
@@ -266,13 +249,14 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63); //TODO: change this sound
+        if (keys['B'] && !keysLastFrame['B']) {
+            sine.start();
             if (!piano.empty()) {
                 piano[4]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(261.63);
+        } else if(!keys['B'] && keysLastFrame['B']) {
+            sine.stop();
+            // Reset color
             if (!piano.empty()) {
                 piano[4]->setColor(whiteKey);
             }
@@ -280,13 +264,14 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63); //TODO: change this sound
+        if (keys['N'] && !keysLastFrame['N']) {
+            sine.start();
             if (!piano.empty()) {
                 piano[5]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(261.63);
+        } else if(!keys['N'] && keysLastFrame['N']) {
+            sine.stop();
+            // Reset color
             if (!piano.empty()) {
                 piano[5]->setColor(whiteKey);
             }
@@ -294,13 +279,14 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63); //TODO: change this sound
+        if (keys['M'] && !keysLastFrame['M']) {
+            sine.start();
             if (!piano.empty()) {
                 piano[6]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(261.63);
+        } else if(!keys['M'] && keysLastFrame['M']) {
+            sine.stop();
+            // Reset color
             if (!piano.empty()) {
                 piano[6]->setColor(whiteKey);
             }
@@ -310,13 +296,14 @@ void Engine::processInput() {
     //// Black KEYS ////
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63); //TODO: change this sound
+        if (keys['S'] && !keysLastFrame['S']) {
+            sine.start();
             if (!piano.empty()) {
                 piano[7]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(261.63);
+        } else if(!keys['S'] && keysLastFrame['S']) {
+            sine.stop();
+            // Reset color
             if (!piano.empty()) {
                 piano[7]->setColor(blackKey);
             }
@@ -324,13 +311,14 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            sound_engine.makeSine(640.0); //TODO: change this sound
+        if (keys['D'] && !keysLastFrame['D']) {
+            sine.start();
             if (!piano.empty()) {
                 piano[8]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(640.0);
+        } else if(!keys['D'] && keysLastFrame['D']) {
+            sine.stop();
+            // Reset color
             if (!piano.empty()) {
                 piano[8]->setColor(blackKey);
             }
@@ -338,13 +326,14 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63); //TODO: change this sound
+        if (keys['G'] && !keysLastFrame['G']) {
+            sine.start();
             if (!piano.empty()) {
                 piano[9]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(261.63);
+        } else if(!keys['G'] && keysLastFrame['G']) {
+            sine.stop();
+            // Reset color
             if (!piano.empty()) {
                 piano[9]->setColor(blackKey);
             }
@@ -352,13 +341,14 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63); //TODO: change this sound
+        if (keys['H'] && !keysLastFrame['H']) {
+            sine.start();
             if (!piano.empty()) {
                 piano[10]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(261.63);
+        } else if(!keys['H'] && keysLastFrame['H']) {
+            sine.stop();
+            // Reset color
             if (!piano.empty()) {
                 piano[10]->setColor(blackKey);
             }
@@ -366,18 +356,218 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63);
+        if (keys['J'] && !keysLastFrame['J']) {
+            sine.start();
             if (!piano.empty()) {
                 piano[11]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(261.63);
+        } else if(!keys['J'] && keysLastFrame['J']) {
+            sine.stop();
+            // Reset color
             if (!piano.empty()) {
                 piano[11]->setColor(blackKey);
             }
         }
     }
+
+
+    // game play key sounds
+    ////// EACH PIANO KEY IS REPRESENTED BY A KEY ON THE KEYBOARD //////
+
+//// WHITE KEYS ////
+
+    if (screen == gamePlay) {
+        if (keys['Z'] && !keysLastFrame['Z']) {
+            sine.start();
+//            sounds[0].makeSine(460.0f);
+            // Highlight C key when pressed
+            if (!piano.empty()) {
+                piano[0]->setColor(pressFill);
+            }
+        } else if(!keys['Z'] && keysLastFrame['Z']) {
+            sine.stop();
+            //sound_engine.stopSine(340.0);
+            //sounds[0].stopSine(460.0f);
+            // Reset color
+            if (!piano.empty()) {
+                piano[0]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == gamePlay) {
+        if (keys['X'] && !keysLastFrame['X']) {
+            sine.start();
+//            sounds[0].makeSine(460.0f);
+            // Highlight C key when pressed
+            if (!piano.empty()) {
+                piano[1]->setColor(pressFill);
+            }
+        } else if(!keys['X'] && keysLastFrame['X']) {
+            sine.stop();
+            //sound_engine.stopSine(340.0);
+            //sounds[0].stopSine(460.0f);
+            // Reset color
+            if (!piano.empty()) {
+                piano[1]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == gamePlay) {
+        if (keys['C'] && !keysLastFrame['C']) {
+            sine.start();
+            // Highlight C key when pressed
+            if (!piano.empty()) {
+                piano[2]->setColor(pressFill);
+            }
+        } else if(!keys['C'] && keysLastFrame['C']) {
+            sine.stop();
+            //sound_engine.stopSine(340.0);
+            //sounds[0].stopSine(460.0f);
+            // Reset color
+            if (!piano.empty()) {
+                piano[2]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == gamePlay) {
+        if (keys['V'] && !keysLastFrame['V']) {
+            sine.start();
+            if (!piano.empty()) {
+                piano[3]->setColor(pressFill);
+            }
+        } else if(!keys['V'] && keysLastFrame['V']) {
+            sine.stop();
+            // Reset color
+            if (!piano.empty()) {
+                piano[3]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == gamePlay) {
+        if (keys['B'] && !keysLastFrame['B']) {
+            sine.start();
+            if (!piano.empty()) {
+                piano[4]->setColor(pressFill);
+            }
+        } else if(!keys['B'] && keysLastFrame['B']) {
+            sine.stop();
+            // Reset color
+            if (!piano.empty()) {
+                piano[4]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == gamePlay) {
+        if (keys['N'] && !keysLastFrame['N']) {
+            sine.start();
+            if (!piano.empty()) {
+                piano[5]->setColor(pressFill);
+            }
+        } else if(!keys['N'] && keysLastFrame['N']) {
+            sine.stop();
+            // Reset color
+            if (!piano.empty()) {
+                piano[5]->setColor(whiteKey);
+            }
+        }
+    }
+
+    if (screen == gamePlay) {
+        if (keys['M'] && !keysLastFrame['M']) {
+            sine.start();
+            if (!piano.empty()) {
+                piano[6]->setColor(pressFill);
+            }
+        } else if(!keys['M'] && keysLastFrame['M']) {
+            sine.stop();
+            // Reset color
+            if (!piano.empty()) {
+                piano[6]->setColor(whiteKey);
+            }
+        }
+    }
+
+    //// Black KEYS ////
+
+    if (screen == gamePlay) {
+        if (keys['S'] && !keysLastFrame['S']) {
+            sine.start();
+            if (!piano.empty()) {
+                piano[7]->setColor(pressFill);
+            }
+        } else if(!keys['S'] && keysLastFrame['S']) {
+            sine.stop();
+            // Reset color
+            if (!piano.empty()) {
+                piano[7]->setColor(blackKey);
+            }
+        }
+    }
+
+    if (screen == gamePlay) {
+        if (keys['D'] && !keysLastFrame['D']) {
+            sine.start();
+            if (!piano.empty()) {
+                piano[8]->setColor(pressFill);
+            }
+        } else if(!keys['D'] && keysLastFrame['D']) {
+            sine.stop();
+            // Reset color
+            if (!piano.empty()) {
+                piano[8]->setColor(blackKey);
+            }
+        }
+    }
+
+    if (screen == gamePlay) {
+        if (keys['G'] && !keysLastFrame['G']) {
+            sine.start();
+            if (!piano.empty()) {
+                piano[9]->setColor(pressFill);
+            }
+        } else if(!keys['G'] && keysLastFrame['G']) {
+            sine.stop();
+            // Reset color
+            if (!piano.empty()) {
+                piano[9]->setColor(blackKey);
+            }
+        }
+    }
+
+    if (screen == gamePlay) {
+        if (keys['H'] && !keysLastFrame['H']) {
+            sine.start();
+            if (!piano.empty()) {
+                piano[10]->setColor(pressFill);
+            }
+        } else if(!keys['H'] && keysLastFrame['H']) {
+            sine.stop();
+            // Reset color
+            if (!piano.empty()) {
+                piano[10]->setColor(blackKey);
+            }
+        }
+    }
+
+    if (screen == gamePlay) {
+        if (keys['J'] && !keysLastFrame['J']) {
+            sine.start();
+            if (!piano.empty()) {
+                piano[11]->setColor(pressFill);
+            }
+        } else if(!keys['J'] && keysLastFrame['J']) {
+            sine.stop();
+            // Reset color
+            if (!piano.empty()) {
+                piano[11]->setColor(blackKey);
+            }
+        }
+    } // end game play key sounds
 
     if(screen == gamePlay) {
         // if mouse pressed now and not pressed last frame
