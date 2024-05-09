@@ -169,13 +169,12 @@ void Engine::processInput() {
 
     bool mousePressed = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 
-
 ////// EACH PIANO KEY IS REPRESENTED BY A KEY ON THE KEYBOARD //////
 
 //// WHITE KEYS ////
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
             // Play sound associated with the "C" key
             sound_engine.makeSine(261.63); // C4
             // Highlight C key when pressed
@@ -193,7 +192,7 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
             sound_engine.makeSine(293.66); //TODO: change this sound, it sounds awful rn
             if (!piano.empty()) {
                 piano[1]->setColor(pressFill);
@@ -207,7 +206,7 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
             sound_engine.makeSine(261.63); //TODO: change this sound
             if (!piano.empty()) {
                 piano[2]->setColor(pressFill);
@@ -221,7 +220,7 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS) {
             sound_engine.makeSine(261.63); //TODO: change this sound
             if (!piano.empty()) {
                 piano[3]->setColor(pressFill);
@@ -235,7 +234,7 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
             sound_engine.makeSine(261.63); //TODO: change this sound
             if (!piano.empty()) {
                 piano[4]->setColor(pressFill);
@@ -249,7 +248,7 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
             sound_engine.makeSine(261.63); //TODO: change this sound
             if (!piano.empty()) {
                 piano[5]->setColor(pressFill);
@@ -263,7 +262,7 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
             sound_engine.makeSine(261.63); //TODO: change this sound
             if (!piano.empty()) {
                 piano[6]->setColor(pressFill);
@@ -279,7 +278,7 @@ void Engine::processInput() {
     //// Black KEYS ////
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
             sound_engine.makeSine(261.63); //TODO: change this sound
             if (!piano.empty()) {
                 piano[7]->setColor(pressFill);
@@ -293,7 +292,7 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
             sound_engine.makeSine(261.63); //TODO: change this sound
             if (!piano.empty()) {
                 piano[8]->setColor(pressFill);
@@ -307,7 +306,7 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
             sound_engine.makeSine(261.63); //TODO: change this sound
             if (!piano.empty()) {
                 piano[9]->setColor(pressFill);
@@ -321,7 +320,7 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
             sound_engine.makeSine(261.63); //TODO: change this sound
             if (!piano.empty()) {
                 piano[10]->setColor(pressFill);
@@ -335,7 +334,7 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
             sound_engine.makeSine(261.63); //TODO: change this sound
             if (!piano.empty()) {
                 piano[11]->setColor(pressFill);
