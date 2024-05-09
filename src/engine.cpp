@@ -169,52 +169,6 @@ void Engine::processInput() {
 
     bool mousePressed = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;
 
-//     Hint: look at the color objects declared at the top of this file
-//    if(screen == freePlay && (keyOverlapsMouse || mousePressed)){
-//        // TODO: When in freePlay screen, if the user hovers or clicks on any of the keys then change the key's color to highlight it
-//        for (const auto& key : piano) {
-//            bool keyOverlapsMouse = false; // Initialize as false
-//            for (const auto& key : piano) {
-//                if (key->isOverlapping(vec2(MouseX, MouseY))) {
-//                    keyOverlapsMouse = true;
-//                    key->setColor(pressFill); // Change color to highlight when key is clicked
-//
-//                    if (mousePressed) {
-//                        // Plays sound associated with the key
-//                        sound_engine.makeSine(5); //TODO: Change this sound
-//                    }
-//
-//                }
-
-//                else {
-//                    key->setColor(originalFill); // Reset color after next key is pressed
-//                }
-//            }
-//
-//        }
-//    }
-
-//    if (screen == freePlay && (keyOverlapsMouse || mousePressed)) {
-//        // Iterate through each key pointer in the piano
-//        for (const auto& key : piano) {
-//            bool keyOverlapsMouse = false;
-//
-//            // Check if the mouse overlaps with the current key
-//            if (key->isOverlapping(vec2(MouseX, MouseY))) {
-//                keyOverlapsMouse = true;
-//                key->setColor(pressFill); // Change color to highlight when key is clicked
-//
-//                if (mousePressed) {
-//                    // Plays sound associated with the key
-//                    sound_engine.makeSine(5); //TODO: Change this sound
-//                }
-//            }
-//            else {
-//                // If the mouse does not overlap with the current key, reset its color
-//                resetKeyColor(int); //TODO: throwing error
-//            }
-//        }
-//    }
 
 ////// EACH PIANO KEY IS REPRESENTED BY A KEY ON THE KEYBOARD //////
 
