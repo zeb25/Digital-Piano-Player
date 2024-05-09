@@ -222,26 +222,26 @@ void Engine::processInput() {
 //        }
 //    }
 
-    if (screen == freePlay && (keyOverlapsMouse || mousePressed)) {
-        // Iterate through each key pointer in the piano
-        for (const auto& key : piano) {
-            bool keyOverlapsMouse = false;
-
-            // Check if the mouse overlaps with the current key
-            if (key->isOverlapping(vec2(MouseX, MouseY))) {
-                keyOverlapsMouse = true;
-                key->setColor(pressFill); // Change color to highlight when key is clicked
-
-                if (mousePressed) {
-                    // Plays sound associated with the key
-                    sound_engine.makeSine(5); //TODO: Change this sound
-                }
-            } else {
-                // If the mouse does not overlap with the current key, reset its color
-                resetKeyColor(key); //TODO: throwing error
-            }
-        }
-    }
+//    if (screen == freePlay && (keyOverlapsMouse || mousePressed)) {
+//        // Iterate through each key pointer in the piano
+//        for (const auto& key : piano) {
+//            bool keyOverlapsMouse = false;
+//
+//            // Check if the mouse overlaps with the current key
+//            if (key->isOverlapping(vec2(MouseX, MouseY))) {
+//                keyOverlapsMouse = true;
+//                key->setColor(pressFill); // Change color to highlight when key is clicked
+//
+//                if (mousePressed) {
+//                    // Plays sound associated with the key
+//                    sound_engine.makeSine(5); //TODO: Change this sound
+//                }
+//            } else {
+//                // If the mouse does not overlap with the current key, reset its color
+//                resetKeyColor(key); //TODO: throwing error
+//            }
+//        }
+//    }
 
     if(screen == freePlay && !(keyOverlapsMouse && mousePressed)){
         // TODO: Make sure the key is its original color when the user is not hovering or clicking on it.
