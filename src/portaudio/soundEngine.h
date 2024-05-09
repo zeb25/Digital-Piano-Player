@@ -33,7 +33,6 @@ public:
         int i;
         double t;
         turnOff = false;
-        pressed = false;
 
         static unsigned long n = 0;
         for(i = 0; i < TABLE_SIZE; i++, n++) {
@@ -113,20 +112,7 @@ public:
         }
         pressed = false;
     }
-/*
-    if (turnOff) {
-        error = Pa_StopStream(stream);
 
-        if(error != paNoError) {
-            Pa_GetErrorText(error);
-        }
-
-        error = Pa_CloseStream( stream );
-        if(error != paNoError) {
-            Pa_GetErrorText(error);
-        }
-        Pa_Terminate();
-    }*/
 private:
     paTestData data;
     PaStream *stream;

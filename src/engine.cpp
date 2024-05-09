@@ -1,4 +1,6 @@
 #include "engine.h"
+#include <vector>       // Include the vector header
+#include <GLFW/glfw3.h> // Include GLFW header for key codes
 
 enum state {start, freePlay, gamePlay, over};
 state screen;
@@ -22,10 +24,9 @@ Engine::Engine() : keys() {
 
     blackKey = {0, 0, 0, 1};
     whiteKey = {1, 1, 1, 1};
-    //pressFill.vec = originalFill.vec - vec4{0.5, 0.5, 0.5, 0};
-
 
     isPlaying = false;
+
 }
 
 Engine::~Engine() {}
@@ -91,8 +92,6 @@ void Engine::initShaders() {
 }
 
 void Engine::initShapes() {
-    // TODO: fix keyboard shapes
-
     // Width of each piano key
     double keyWidth = 90; // Dividing the screen into 7 keys
 
@@ -101,6 +100,8 @@ void Engine::initShapes() {
         float keyX = i;
         float keyY = height / 4;
         piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{keyWidth, height / 2}, color{1, 1, 1, 1}));
+//        sounds.push_back(SoundEngine());
+//        sounds[sounds.size()-1].run();
     }
 
     // Add black keys (sharps/flats)
@@ -114,7 +115,10 @@ void Engine::initShapes() {
         float keyX = i;
         float keyY = height / 4 * 1.5; // Offset from white keys
         piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{blackKeyWidth, blackKeyHeight}, color{0, 0, 0, 1}));
+//        sounds.push_back(SoundEngine());
+//        sounds[sounds.size()-1].run();
     }
+
 }
 
 
@@ -163,7 +167,7 @@ void Engine::processInput() {
     // Mouse position is inverted because the origin of the window is in the top left corner
     MouseY = height - MouseY; // Invert y-axis of mouse position
 
-    // TODO: figure out how to check if mouse is overlapping any piano key
+    // figure out how to check if mouse is overlapping any piano key
     bool keyOverlapsMouse = piano[0]->isOverlapping(
             vec2(MouseX, MouseY)); // checks if mouse overlaps with first piano key
 
@@ -174,16 +178,23 @@ void Engine::processInput() {
 //// WHITE KEYS ////
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+        if (keys['Z'] && !keysLastFrame['Z']) {
             // Play sound associated with the "C" key
-            sound_engine.makeSine(261.63); // C4
+            //sound_engine.makeSine(340.0); // C4
+//            sine.open(Pa_GetDefaultOutputDevice());
+//            sine.left_freq = 440.0f;
+//            sine.right_freq = 580.0f;
+            sine.start();
+//            sounds[0].makeSine(460.0f);
             // Highlight C key when pressed
             if (!piano.empty()) {
                 piano[0]->setColor(pressFill);
             }
-        } else {
+        } else if(!keys['Z'] && keysLastFrame['Z']) {
             // Stop the sine wave associated with the "C" key
-            sound_engine.stopSine(261.63);
+            sine.stop();
+            //sound_engine.stopSine(340.0);
+            //sounds[0].stopSine(460.0f);
             // Reset color
             if (!piano.empty()) {
                 piano[0]->setColor(whiteKey);
@@ -192,13 +203,23 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_X) == GLFW_PRESS) {
-            sound_engine.makeSine(293.66); //TODO: change this sound, it sounds awful rn
+        if (keys['X'] && !keysLastFrame['X']) {
+            //sound_engine.makeSine(340.0); // C4
+//            sine.open(Pa_GetDefaultOutputDevice());
+//            sine.left_freq = 440.0f;
+//            sine.right_freq = 580.0f;
+            sine.start();
+//            sounds[0].makeSine(460.0f);
+            // Highlight C key when pressed
             if (!piano.empty()) {
                 piano[1]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(293.66);
+        } else if(!keys['X'] && keysLastFrame['X']) {
+            // Stop the sine wave associated with the "C" key
+            sine.stop();
+            //sound_engine.stopSine(340.0);
+            //sounds[0].stopSine(460.0f);
+            // Reset color
             if (!piano.empty()) {
                 piano[1]->setColor(whiteKey);
             }
@@ -206,13 +227,24 @@ void Engine::processInput() {
     }
 
     if (screen == freePlay) {
-        if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63); //TODO: change this sound
+        if (keys['C'] && !keysLastFrame['C']) {
+            // Play sound associated with the "C" key
+            //sound_engine.makeSine(340.0); // C4
+//            sine.open(Pa_GetDefaultOutputDevice());
+//            sine.left_freq = 440.0f;
+//            sine.right_freq = 580.0f;
+            sine.start();
+//            sounds[0].makeSine(460.0f);
+            // Highlight C key when pressed
             if (!piano.empty()) {
                 piano[2]->setColor(pressFill);
             }
-        } else {
-            sound_engine.stopSine(261.63);
+        } else if(!keys['C'] && keysLastFrame['C']) {
+            // Stop the sine wave associated with the "C" key
+            sine.stop();
+            //sound_engine.stopSine(340.0);
+            //sounds[0].stopSine(460.0f);
+            // Reset color
             if (!piano.empty()) {
                 piano[2]->setColor(whiteKey);
             }
@@ -293,12 +325,12 @@ void Engine::processInput() {
 
     if (screen == freePlay) {
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63); //TODO: change this sound
+            sound_engine.makeSine(640.0); //TODO: change this sound
             if (!piano.empty()) {
                 piano[8]->setColor(pressFill);
             }
         } else {
-            sound_engine.stopSine(261.63);
+            sound_engine.stopSine(640.0);
             if (!piano.empty()) {
                 piano[8]->setColor(blackKey);
             }
@@ -335,7 +367,7 @@ void Engine::processInput() {
 
     if (screen == freePlay) {
         if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
-            sound_engine.makeSine(261.63); //TODO: change this sound
+            sound_engine.makeSine(261.63);
             if (!piano.empty()) {
                 piano[11]->setColor(pressFill);
             }
@@ -345,12 +377,6 @@ void Engine::processInput() {
                 piano[11]->setColor(blackKey);
             }
         }
-    }
-
-
-
-    if(screen == freePlay && !(keyOverlapsMouse && mousePressed)){
-        // TODO: Make sure the key is its original color when the user is not hovering or clicking on it.
     }
 
     if(screen == gamePlay) {
@@ -382,6 +408,10 @@ void Engine::processInput() {
     // Save mousePressed for next frame
     mousePressedLastFrame = mousePressed;
 
+    for (int key = 0; key < 1024; ++key) {
+        keysLastFrame[key] = keys[key];
+    }
+
 }
 
 void Engine::update() {
@@ -390,6 +420,16 @@ void Engine::update() {
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
     bool playedRight = false;
+
+//    for (int i = 0; i < piano.size(); ++i) {
+//        if (playSound[i]) {
+//            // Start the sine wave associated with the pressed key
+//            sound_engine.makeSine(frequencies[i]);
+//        } else {
+//            // Stop the sine wave associated with the released key
+//            sound_engine.stopSine(frequencies[i]);
+//        }
+//    }
 
     // TODO: When in gamePlay mode, end the game when the user correctly plays the song
     if(screen == gamePlay && playedRight){
@@ -551,13 +591,13 @@ void Engine::render() {
     glfwSwapBuffers(window);
 }
 
-void Engine::spawnConfetti() {
-    vec2 pos = {rand() % (int)width, rand() % (int)height};
-    int rd = 1 + (rand() % 100);
-    vec2 size = {rd, rd}; // placeholder
-    color color = {float(rand() % 10 / 10.0), float(rand() % 10 / 10.0), float(rand() % 10 / 10.0), 1.0f};
-    confetti.push_back(make_unique<Rect>(shapeShader, pos, size, color));
-}
+//void Engine::spawnConfetti() {
+//    vec2 pos = {rand() % (int)width, rand() % (int)height};
+//    int rd = 1 + (rand() % 100);
+//    vec2 size = {rd, rd}; // placeholder
+//    color color = {float(rand() % 10 / 10.0), float(rand() % 10 / 10.0), float(rand() % 10 / 10.0), 1.0f};
+//    confetti.push_back(make_unique<Rect>(shapeShader, pos, size, color));
+//}
 
 void Engine::resetKeyColor(int key) {
     // Determine the original color of the button

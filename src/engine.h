@@ -21,6 +21,11 @@ using std::vector, std::unique_ptr, std::make_unique, glm::ortho, glm::mat4, glm
  */
 class Engine {
 private:
+    std::vector<bool> playSound;
+    std::vector<int> pianoKeys;
+    std::vector<float> frequencies;
+
+
     /// @brief The actual GLFW window.
     GLFWwindow* window{};
 
@@ -30,6 +35,7 @@ private:
     /// @brief Keyboard state (True if pressed, false if not pressed).
     /// @details Index this array with GLFW_KEY_{key} to get the state of a key.
     bool keys[1024];
+    bool keysLastFrame[1024];
 
     /// @brief Responsible for loading and storing all the shaders used in the project.
     /// @details Initialized in initShaders()
@@ -64,6 +70,7 @@ public:
     SoundEngine sound_engine;
 
     Sine sine;
+    vector<SoundEngine> sounds;
 
     ScopedPaHandler paInit;
 
@@ -109,6 +116,23 @@ public:
     /* deltaTime variables */
     float deltaTime = 0.0f; // Time between current frame and last frame
     float lastFrame = 0.0f; // Time of last frame (used to calculate deltaTime)
+
+    // Function to initialize the pianoKeys vector
+    void initializePianoKeys() {
+        // Add the desired keyboard keys to the pianoKeys vector
+        // For example, to add GLFW_KEY_Z:
+        pianoKeys.push_back(GLFW_KEY_Z);
+        // Add other keys as needed...
+    }
+
+    // Function to initialize the frequencies vector
+    void initializeFrequencies() {
+        // Add the frequencies associated with each key to the frequencies vector
+        // For example, to add the frequency for GLFW_KEY_Z:
+        frequencies.push_back(261.63f); // C4
+        // Add other frequencies as needed...
+    }
+
 
     // -----------------------------------
     // Getters

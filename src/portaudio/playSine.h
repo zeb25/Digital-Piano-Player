@@ -58,15 +58,17 @@
 class Sine
 {
 public:
-    Sine() : stream(0), left_phase(0), right_phase(0)
+    Sine() : stream(0), left_phase(0), right_phase(0), left_freq(440.0f), right_freq(880.0f) // Initialize default frequencies
     {
         /* initialise sinusoidal wavetable */
         for( int i=0; i<TABLE_SIZE; i++ )
         {
             sine[i] = (float) sin( ((double)i/(double)TABLE_SIZE) * M_PI * 2. );
         }
-
     }
+    // Add member variables for left and right frequencies
+    float left_freq;
+    float right_freq;
 
     bool open(PaDeviceIndex index)
     {
@@ -164,7 +166,6 @@ private:
         (void) statusFlags;
         (void) inputBuffer;
 
-
         // TODO: make left and right phase numbers change in order to generate different sounds
         for( i=0; i<framesPerBuffer; i++ )
         {
@@ -172,10 +173,9 @@ private:
             *out++ = sine[right_phase];  /* right */
             left_phase += 1;
             if( left_phase >= TABLE_SIZE ) left_phase -= TABLE_SIZE;
-            right_phase += 5; /* higher pitch so we can distinguish left and right. */
+            right_phase += (int)(TABLE_SIZE * right_freq / SAMPLE_RATE); /* higher pitch so we can distinguish left and right. */
             if( right_phase >= TABLE_SIZE ) right_phase -= TABLE_SIZE;
         }
-
         return paContinue;
 
     }
