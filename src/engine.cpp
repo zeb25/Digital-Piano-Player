@@ -17,7 +17,7 @@ Engine::Engine() : keys() {
     this->processInput();
 
     originalFill = {1, 0, 0, 1};
-    pressFill = {0.82, 0.643, 0.941};
+    pressFill = {0.204, 0.439, 0.78};
     hoverFill.vec = originalFill.vec + vec4{0.5, 0.5, 0.5, 0};
 
     blackKey = {0, 0, 0, 1};
@@ -471,6 +471,11 @@ void Engine::render() {
             }
             // Increment the elapsed time
             elapsedTime += deltaTime; // deltaTime is the time since the last frame
+
+            // Main background
+            glClearColor(0.686f, 0.816f, 1.0f, 1.0f);  // blue background
+            glClear(GL_COLOR_BUFFER_BIT);
+
             // Draw piano
             for(const unique_ptr<Shape>& r: piano){
                 r->setUniforms();
@@ -518,6 +523,10 @@ void Engine::render() {
             }
             // Increment the elapsed time
             elapsedTime += deltaTime; // deltaTime is the time since the last frame
+
+            // Main background
+            glClearColor(0.686f, 0.816f, 1.0f, 1.0f);  // blue background
+            glClear(GL_COLOR_BUFFER_BIT);
 
             // Draw piano
             for(const unique_ptr<Shape>& r: piano){
