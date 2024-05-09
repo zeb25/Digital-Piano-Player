@@ -356,12 +356,12 @@ void Engine::processInput() {
 
     if(screen == gamePlay) {
         // if mouse pressed now and not pressed last frame
-            // make sound
+        // make sound
         if (keyOverlapsMouse && mousePressed && !mousePressedLastFrame) {
             sound_engine.makeSine(440);
         }
         // if mouse pressed now false and it was pressed last frame
-            // stop sound
+        // stop sound
         if (keyOverlapsMouse && !mousePressed && mousePressedLastFrame) {
             sound_engine.stopSine(440);
         }
