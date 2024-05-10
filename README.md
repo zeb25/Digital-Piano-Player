@@ -1,40 +1,40 @@
 # Final-Project 
-Purva Shirolkar & Zoe Bell
+Code Written Zoe Bell & Purva Shirolkar
 
 ## Summary
-A piano, C++, graphics program that uses an audio plug-in(JUCE) and displays a
-graphical keyboard that the user can play using their mouse or laptop keys. The
-visuals will display in a fixed size window with three different screens. The home
-screen will have two buttons, one for the "free play" option, and one for the
-"practice song" option. The "free play" screen will display the keyboard for the
-user to freely play music with audio being output using the audio plug-in. The
-"practice song" screen will display the keyboard and some instructions as to how
-the user will practice. The computer will go through the song, playing the keys
-and highlighting them on the keyboard, then after finishing it will start the
-practice. The computer will play the first note of the song and highlight the key on
-the keyboard, and wait for the user to play that same note before moving on to
-the next note of the song. After finishing, the computer will play the song one
-more time all the way through, then the user will have to also play the song all
-the way through; if they do this correctly the practice rounds concludes and the
-screen exits to the main menu, if the user doesn't correctly play all the keys, the
-practice restarts. If the back key is pressed at any point, the user will exit to the
-main menu.
+A piano, C++, graphics program that uses an audio library from PortAudio to generate sound corresponding to keys of a single piano octave.
+The program opens up to the start screen which offers two options for the user: press 'p' to practice a song or press 's' to freely
+play the piano. The freePlay mode allows the user to play the piano using their laptop keyboard. The bottom two rows of the letter keys
+correspond to the keys of the piano. The gamePlay mode goes through the keys to play "Mary Had a Little Lamb" on the piano once before leaving
+the screen open for the user to practice.
 
+## OS
+This program can run on any operating system including Windows and MacOS.
 
 ## Concepts
+We used the graphics code from the confetti button project from Module 4 as a base because we could implement some of the same ideas of 
+generating buttons and having the user interact with those buttons, or in this case keys, to produce a reaction (sound playing). We also used
+several other graphics concepts from module 4 to generate the vector of piano keys.
 
 ## How to run
+This program runs straight on your OS in a pop-up graphical window. 
 
 ## Installations
 
 ## Citations
+* 'playSine.h' source code:
+  * * PortAudio Portable Audio Library.
+  * * For more information see: http://www.portaudio.com/
+  * * Copyright (c) 1999-2000 Ross Bencina and Phil Burk
 
 ## Grading structure
-The project is out of 200 points.
+The project is out of 200 points. From where it is in its current state it is probably worth around 160 points. While the
+piano key sounds don't change pitch, they work correctly to correlate to each individual key and still play when the user presses
+the correct key on their keyboard. The piano graphics work correctly and part of the game logic we hoped to implement is also working. 
 
 | Points Possible | Description of requirement                                               |
 |-----------------|--------------------------------------------------------------------------|
-| 100 pts         | Learning and implementing JUCE with our chosen IDE                       |
+| 100 pts         | Learning and implementing of the audio library chosen IDE                |
 | 40 pts          | Integrating graphics (screens and piano)                                 |
 | 50 pts          | Game component: implementing the logic of the song practice mode         |
 | 10 pts          | Collaboration: all code committed to Github correctly, ReadMe filled out |
