@@ -745,7 +745,7 @@ void Engine::render() {
                 int leftAlign = 50;
                 int initialVerticalPosition = height - 160;
                 int verticalSpacing = 40;
-                string i1 = ">> The program will play the song first and ";
+                string i1 = ">> The program will play the Mary Had a Little Lamb and ";
                 this->fontRenderer->renderText(i1, leftAlign, initialVerticalPosition, 0.60, vec3{0.984, 0.945, 0.933});
                 string i2 = "   highlight each key played on the keyboard";
                 this->fontRenderer->renderText(i2, leftAlign, initialVerticalPosition - verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
