@@ -614,6 +614,20 @@ void Engine::update() {
     lastFrame = currentFrame;
     bool playedRight = false;
 
+//    for (int i = 0; i < piano.size(); ++i) {
+//        if (playSound[i]) {
+//            // Start the sine wave associated with the pressed key
+//            sound_engine.makeSine(frequencies[i]);
+//        } else {
+//            // Stop the sine wave associated with the released key
+//            sound_engine.stopSine(frequencies[i]);
+//        }
+//    }
+
+    // TODO: When in gamePlay mode, end the game when the user correctly plays the song
+    if(screen == gamePlay && playedRight){
+        screen = over;
+    }
 }
 
 void Engine::render() {
@@ -636,7 +650,7 @@ void Engine::render() {
                                            vec3{1, 1, 1});
             // Each sentence
             string sentence1 = "Welcome to our interactive piano practice program!";
-            string sentence2 = "Play for fun or practice a short song";
+            string sentence2 = "    Play for fun or practice a short song";
             //string sentence3 = "Switch off all the lights with the least number of clicks.";
             // Positioning, size, color
             this->fontRenderer->renderText(sentence1, width / 6.5 - (5 * title.length()), height / 2 + 50, 0.58,
@@ -665,8 +679,21 @@ void Engine::render() {
         }
 
         case freePlay: {
+            // Increment the elapsed time
+            elapsedTime += deltaTime; // deltaTime is the time since the last frame
+
+            // Main background
+            glClearColor(0.686f, 0.816f, 1.0f, 1.0f);  // blue background
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            // Draw piano
+            for(const unique_ptr<Shape>& r: piano){
+                r->setUniforms();
+                r->draw();
+            }
+
             // Check if 5 seconds have passed to hide the text
-            if (elapsedTime < 10.0f) { // change this back to 5.0 after testing
+            if (elapsedTime < 5.0f) {
                 glClearColor(0.596f, 0.714f, 0.929f, 1.0f); // Light blue background
                 // Clear the color buffer
                 glClear(GL_COLOR_BUFFER_BIT);
@@ -684,9 +711,16 @@ void Engine::render() {
                 string i3 = ">> Press esc to exit";
                 this->fontRenderer->renderText(i3, leftAlign, height - 230 - 2 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
+                showText = true;
             } else {
                 showText = false;
             }
+
+            break;
+        }
+
+        case gamePlay: {
+
             // Increment the elapsed time
             elapsedTime += deltaTime; // deltaTime is the time since the last frame
 
@@ -699,14 +733,9 @@ void Engine::render() {
                 r->setUniforms();
                 r->draw();
             }
-            bool done = false;
 
-            break;
-        }
-            //Add a practice screen here
-        case gamePlay: {
             // Check if 5 seconds have passed to hide the text
-            if (elapsedTime < 10.0f) { // change this back to 10.0 after testing
+            if (elapsedTime < 7.0f) {
                 glClearColor(0.596f, 0.714f, 0.929f, 1.0f); // Light blue background
                 // Clear the color buffer
                 glClear(GL_COLOR_BUFFER_BIT);
@@ -720,15 +749,15 @@ void Engine::render() {
                 this->fontRenderer->renderText(i1, leftAlign, initialVerticalPosition, 0.60, vec3{0.984, 0.945, 0.933});
                 string i2 = "   highlight each key played on the keyboard";
                 this->fontRenderer->renderText(i2, leftAlign, initialVerticalPosition - verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
-                string i3 = ">> Now, it's your turn! Click on the";
+                string i3 = ">> Now, it's your turn! Press the";
                 this->fontRenderer->renderText(i3, leftAlign, initialVerticalPosition - 2 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
-                string i4 = "    highlighted keys as they appear";
+                string i4 = "    correct keys on your keyboard to play sound";
                 this->fontRenderer->renderText(i4, leftAlign, initialVerticalPosition - 3 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
                 string i5 = ">> Once you're done playing, the program will ";
                 this->fontRenderer->renderText(i5, leftAlign, initialVerticalPosition - 4 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
                 string i6 = "   play the song one more time";
                 this->fontRenderer->renderText(i6, leftAlign, initialVerticalPosition - 5 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
-                string i7 = ">> It's game time now! Play the song correctly";
+                string i7 = ">> Play the song correctly";
                 this->fontRenderer->renderText(i7, leftAlign, initialVerticalPosition - 6 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
                 string i8 = "   to win";
                 this->fontRenderer->renderText(i8, leftAlign, initialVerticalPosition - 7 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
@@ -737,21 +766,11 @@ void Engine::render() {
                 string i10 = ">> Press esc to exit";
                 this->fontRenderer->renderText(i10, leftAlign, initialVerticalPosition - 9 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
+                showText = true;
             } else {
                 showText = false;
             }
-            // Increment the  elapsed time
-            elapsedTime += deltaTime; // deltaTime is the time since the last frame
 
-            // Main background
-            glClearColor(0.686f, 0.816f, 1.0f, 1.0f);  // blue background
-            glClear(GL_COLOR_BUFFER_BIT);
-
-            // Draw piano
-            for(const unique_ptr<Shape>& r: piano){
-                r->setUniforms();
-                r->draw();
-            }
 
             //// GAME LOGIC FOR MARY HAD A LITTLE LAMB////
 //            Mary Had a Little Lamb
@@ -763,14 +782,14 @@ void Engine::render() {
             // Play First Line
             // 2-1-0-1-0-0-0
 
-            // Check if elapsedTime is within the 2 sec buffer time + the time to play the sound (1 sec)
-            if (elapsedTime > 2.0f && elapsedTime < 3.0f) {
+            // Check if elapsedTime is within the 8 sec buffer time + the time to play the sound (1 sec)
+            if (elapsedTime > 8.0f && elapsedTime < 9.0f) {
                 // Start playing the sound and change color for piano[2]
                 sine.start();
                 if (!piano.empty()) {
                     piano[2]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 3.0f && elapsedTime < 4.0f) { // Ensure sound stops after 1 second
+            } else if (elapsedTime >= 9.0f && elapsedTime < 10.0f) { // Ensure sound stops after 1 second
                 // Stop the sound and reset color for piano[1]
                 sine.stop();
                 if (!piano.empty()) {
@@ -778,73 +797,72 @@ void Engine::render() {
                 }
             }
 
-            // Check if elapsedTime is within the 4 sec buffer time + the time to play the sound (1 sec)
-            if (elapsedTime > 4.0f && elapsedTime < 5.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[1]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 5.0f && elapsedTime < 6.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[1]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 6.0f && elapsedTime < 7.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[0]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 7.0f && elapsedTime < 8.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[0]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 8.0f && elapsedTime < 9.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[1]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 9.0f && elapsedTime < 10.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[1]->setColor(whiteKey);
-                }
-            }
-
             if (elapsedTime > 10.0f && elapsedTime < 11.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[2]->setColor(pressFill);
+                    piano[1]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 11.0f && elapsedTime < 12.0f) {
                 sine.stop();
                 if (!piano.empty()) {
-                    piano[2]->setColor(whiteKey);
+                    piano[1]->setColor(whiteKey);
                 }
             }
 
             if (elapsedTime > 12.0f && elapsedTime < 13.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[2]->setColor(pressFill);
+                    piano[0]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 13.0f && elapsedTime < 14.0f) {
                 sine.stop();
                 if (!piano.empty()) {
-                    piano[2]->setColor(whiteKey);
+                    piano[0]->setColor(whiteKey);
                 }
             }
 
             if (elapsedTime > 14.0f && elapsedTime < 15.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[2]->setColor(pressFill);
+                    piano[1]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 15.0f && elapsedTime < 16.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[1]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 16.0f && elapsedTime < 17.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 17.0f && elapsedTime < 18.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[2]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 18.0f && elapsedTime < 19.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 19.0f && elapsedTime < 20.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[2]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 20.0f && elapsedTime < 21.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 21.0f && elapsedTime < 22.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
@@ -853,36 +871,36 @@ void Engine::render() {
 
             // Second Line
             // 1-1-1
-            if (elapsedTime > 17.0f && elapsedTime < 18.0f) {
+            if (elapsedTime > 24.0f && elapsedTime < 25.0f) {
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 18.0f && elapsedTime < 19.0f) {
+            } else if (elapsedTime >= 25.0f && elapsedTime < 26.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
                 }
             }
 
-            if (elapsedTime > 19.0f && elapsedTime < 20.0f) {
+            if (elapsedTime > 26.0f && elapsedTime < 27.0f) {
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 20.0f && elapsedTime < 21.0f) {
+            } else if (elapsedTime >= 27.0f && elapsedTime < 28.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
                 }
             }
 
-            if (elapsedTime > 21.0f && elapsedTime < 22.0f) {
+            if (elapsedTime > 28.0f && elapsedTime < 29.0f) {
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 22.0f && elapsedTime < 23.0f) {
+            } else if (elapsedTime >= 29.0f && elapsedTime < 30.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -892,44 +910,6 @@ void Engine::render() {
             // Third Line
             //  2-2-2
 
-            if (elapsedTime > 24.0f && elapsedTime < 25.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[2]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 25.0f && elapsedTime < 26.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[2]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 26.0f && elapsedTime < 27.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[2]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 27.0f && elapsedTime < 28.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[2]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 28.0f && elapsedTime < 29.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[2]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 29.0f && elapsedTime < 30.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[2]->setColor(whiteKey);
-                }
-            }
-
-            // Fourth Line
-            // 2-1-0-1-0-0-0-0-1-1-2-1-0
             if (elapsedTime > 31.0f && elapsedTime < 32.0f) {
                 sine.start();
                 if (!piano.empty()) {
@@ -945,141 +925,167 @@ void Engine::render() {
             if (elapsedTime > 33.0f && elapsedTime < 34.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[1]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 34.0f && elapsedTime < 35.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[1]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 35.0f && elapsedTime < 36.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[0]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 36.0f && elapsedTime < 37.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[0]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 37.0f && elapsedTime < 38.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[1]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 38.0f && elapsedTime < 39.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[1]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 39.0f && elapsedTime < 40.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[0]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 40.0f && elapsedTime < 41.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[0]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 41.0f && elapsedTime < 42.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[0]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 42.0f && elapsedTime < 43.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[0]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 43.0f && elapsedTime < 44.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[0]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 44.0f && elapsedTime < 45.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[0]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 45.0f && elapsedTime < 46.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[0]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 46.0f && elapsedTime < 47.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[0]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 47.0f && elapsedTime < 48.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[1]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 48.0f && elapsedTime < 49.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[1]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 49.0f && elapsedTime < 50.0f) {
-                sine.start();
-                if (!piano.empty()) {
-                    piano[1]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 50.0f && elapsedTime < 51.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[1]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 51.0f && elapsedTime < 52.0f) {
-                sine.start();
-                if (!piano.empty()) {
                     piano[2]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 52.0f && elapsedTime < 53.0f) {
+            } else if (elapsedTime >= 34.0f && elapsedTime < 35.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
                 }
             }
 
-            if (elapsedTime > 53.0f && elapsedTime < 54.0f) {
+            if (elapsedTime > 35.0f && elapsedTime < 36.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 36.0f && elapsedTime < 37.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[2]->setColor(whiteKey);
+                }
+            }
+
+            // Fourth Line
+            // 2-1-0-1-0-0-0-0-1-1-2-1-0
+            if (elapsedTime > 38.0f && elapsedTime < 39.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 39.0f && elapsedTime < 40.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[2]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 40.0f && elapsedTime < 41.0f) {
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 54.0f && elapsedTime < 55.0f) {
+            } else if (elapsedTime >= 41.0f && elapsedTime < 42.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
                 }
             }
 
-            if (elapsedTime > 55.0f && elapsedTime < 56.0f) {
+            if (elapsedTime > 42.0f && elapsedTime < 43.0f) {
                 sine.start();
                 if (!piano.empty()) {
                     piano[0]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 56.0f && elapsedTime < 57.0f) {
+            } else if (elapsedTime >= 43.0f && elapsedTime < 44.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[0]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 44.0f && elapsedTime < 45.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[1]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 45.0f && elapsedTime < 46.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[1]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 46.0f && elapsedTime < 47.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[0]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 47.0f && elapsedTime < 48.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[0]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 48.0f && elapsedTime < 49.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[0]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 49.0f && elapsedTime < 50.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[0]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 50.0f && elapsedTime < 51.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[0]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 51.0f && elapsedTime < 52.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[0]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 52.0f && elapsedTime < 53.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[1]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 53.0f && elapsedTime < 54.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[1]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 54.0f && elapsedTime < 55.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[1]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 55.0f && elapsedTime < 56.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[1]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 56.0f && elapsedTime < 57.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 57.0f && elapsedTime < 58.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[2]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 58.0f && elapsedTime < 59.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[1]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 59.0f && elapsedTime < 60.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[1]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 60.0f && elapsedTime < 61.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[0]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 61.0f && elapsedTime < 62.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[0]->setColor(whiteKey);
@@ -1088,7 +1094,7 @@ void Engine::render() {
 
             //// Program stops playing song here ////
             // Display "Your Turn" text for 2 seconds
-            if (elapsedTime > 57.0f && elapsedTime < 59.0f) {
+            if (elapsedTime > 62.0f && elapsedTime < 64.0f) {
                 string yourTurnText = "Your Turn!!";
                 this->fontRenderer->renderText(yourTurnText, width / 2 - (20 * yourTurnText.length()), height / 1.2, 1.5, vec3{0.996, 0.796, 0.243});
             }
