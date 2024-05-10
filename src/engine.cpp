@@ -100,6 +100,8 @@ void Engine::initShapes() {
         float keyX = i;
         float keyY = height / 4;
         piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{keyWidth, height / 2}, color{1, 1, 1, 1}));
+        // Get the index of the current key in the loop
+        int keyIndex = (i - 100) / 100;
 //        sounds.push_back(SoundEngine());
 //        sounds[sounds.size()-1].run();
     }
@@ -115,6 +117,7 @@ void Engine::initShapes() {
         float keyX = i;
         float keyY = height / 4 * 1.5; // Offset from white keys
         piano.push_back(make_unique<Rect>(shapeShader, vec2{keyX, keyY}, vec2{blackKeyWidth, blackKeyHeight}, color{0, 0, 0, 1}));
+        int keyIndex = (i - 150) / 100;
 //        sounds.push_back(SoundEngine());
 //        sounds[sounds.size()-1].run();
     }
@@ -762,6 +765,24 @@ void Engine::render() {
                 r->setUniforms();
                 r->draw();
             }
+
+            //// GAME LOGIC ////
+
+            // Check if elapsedTime is within the 2 sec buffer time + the time to play the sound (1 sec)
+            if (elapsedTime > 2.0f && elapsedTime < 3.0f) {
+                // Start playing the sound and change color
+                sine.start();
+                if (!piano.empty()) {
+                    piano[0]->setColor(pressFill);
+                }
+            } else {
+                // Stop the sound and reset color
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[0]->setColor(whiteKey);
+                }
+            }
+
 
             break;
         }
