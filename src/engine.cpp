@@ -766,22 +766,113 @@ void Engine::render() {
                 r->draw();
             }
 
-            //// GAME LOGIC ////
+            //// GAME LOGIC FOR MARY HAD A LITTLE LAMB////
+            // Play first line
 
             // Check if elapsedTime is within the 2 sec buffer time + the time to play the sound (1 sec)
             if (elapsedTime > 2.0f && elapsedTime < 3.0f) {
-                // Start playing the sound and change color
+                // Start playing the sound and change color for piano[2]
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 3.0f && elapsedTime < 4.0f) { // Ensure sound stops after 1 second
+                // Stop the sound and reset color for piano[2]
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[2]->setColor(whiteKey);
+                }
+            }
+
+            // Check if elapsedTime is within the 4 sec buffer time + the time to play the sound (1 sec)
+            if (elapsedTime > 4.0f && elapsedTime < 5.0f) {
+                // Start playing the sound and change color for piano[1]
+                sine.start();
+                if (!piano.empty()) {
+                    piano[1]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 5.0f && elapsedTime < 6.0f) { // Ensure that sound stops after 1 second
+                // Stop the sound and reset color for piano[1]
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[1]->setColor(whiteKey);
+                }
+            }
+
+
+            if (elapsedTime > 6.0f && elapsedTime < 7.0f) {
+                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[0]->setColor(pressFill);
                 }
-            } else {
-                // Stop the sound and reset color
+            } else if (elapsedTime >= 7.0f && elapsedTime < 8.0f) { // Ensure that sound stops after 1 second
+                // Stop the sound and reset color for piano[1]
                 sine.stop();
                 if (!piano.empty()) {
                     piano[0]->setColor(whiteKey);
                 }
             }
+
+            if (elapsedTime > 8.0f && elapsedTime < 9.0f) {
+                // Start playing the sound and change color for piano[1]
+                sine.start();
+                if (!piano.empty()) {
+                    piano[1]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 9.0f && elapsedTime < 10.0f) { // Ensure that sound stops after 1 second
+                // Stop the sound and reset color for piano[1]
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[1]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 10.0f && elapsedTime < 11.0f) {
+                // Start playing the sound and change color for piano[1]
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 11.0f && elapsedTime < 12.0f) { // Ensure that sound stops after 1 second
+                // Stop the sound and reset color for piano[1]
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[2]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 12.0f && elapsedTime < 13.0f) {
+                // Start playing the sound and change color for piano[1]
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 13.0f && elapsedTime < 14.0f) { // Ensure that sound stops after 1 second
+                // Stop the sound and reset color for piano[1]
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[2]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 14.0f && elapsedTime < 15.0f) {
+                // Start playing the sound and change color for piano[1]
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 15.0f && elapsedTime < 16.0f) { // Ensure that sound stops after 1 second
+                // Stop the sound and reset color for piano[1]
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[2]->setColor(whiteKey);
+                }
+            }
+
+
+
+
 
 
             break;
