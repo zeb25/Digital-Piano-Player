@@ -614,20 +614,6 @@ void Engine::update() {
     lastFrame = currentFrame;
     bool playedRight = false;
 
-//    for (int i = 0; i < piano.size(); ++i) {
-//        if (playSound[i]) {
-//            // Start the sine wave associated with the pressed key
-//            sound_engine.makeSine(frequencies[i]);
-//        } else {
-//            // Stop the sine wave associated with the released key
-//            sound_engine.stopSine(frequencies[i]);
-//        }
-//    }
-
-    // TODO: When in gamePlay mode, end the game when the user correctly plays the song
-    if(screen == gamePlay && playedRight){
-        screen = over;
-    }
 }
 
 void Engine::render() {
@@ -680,7 +666,7 @@ void Engine::render() {
 
         case freePlay: {
             // Check if 5 seconds have passed to hide the text
-            if (elapsedTime < 1.0f) { // TODO: change this back to 5.0 after testing
+            if (elapsedTime < 10.0f) { // change this back to 5.0 after testing
                 glClearColor(0.596f, 0.714f, 0.929f, 1.0f); // Light blue background
                 // Clear the color buffer
                 glClear(GL_COLOR_BUFFER_BIT);
@@ -713,13 +699,14 @@ void Engine::render() {
                 r->setUniforms();
                 r->draw();
             }
+            bool done = false;
 
             break;
         }
             //Add a practice screen here
         case gamePlay: {
             // Check if 5 seconds have passed to hide the text
-            if (elapsedTime < 1.0f) { // TODO: change this back to 10.0 after testing
+            if (elapsedTime < 10.0f) { // change this back to 10.0 after testing
                 glClearColor(0.596f, 0.714f, 0.929f, 1.0f); // Light blue background
                 // Clear the color buffer
                 glClear(GL_COLOR_BUFFER_BIT);
@@ -753,7 +740,7 @@ void Engine::render() {
             } else {
                 showText = false;
             }
-            // Increment the elapsed time
+            // Increment the  elapsed time
             elapsedTime += deltaTime; // deltaTime is the time since the last frame
 
             // Main background
