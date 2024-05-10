@@ -1099,6 +1099,16 @@ void Engine::render() {
                 }
             }
 
+            //// Program stops playing song here ////
+            // Display "Your Turn" text for 2 seconds
+            if (elapsedTime > 57.0f && elapsedTime < 59.0f) {
+                string yourTurnText = "Your Turn!!";
+                this->fontRenderer->renderText(yourTurnText, width / 2 - (20 * yourTurnText.length()), height / 1.2, 1.5, vec3{0.996, 0.796, 0.243});
+            }
+            else {
+                showText = false;
+            }
+
             break;
         }
 
