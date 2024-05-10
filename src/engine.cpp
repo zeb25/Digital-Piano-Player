@@ -770,8 +770,8 @@ void Engine::render() {
 //            Mary Had a Little Lamb
 //            2-1-0-1-0-0-0
 //            1-1-1
-//            2-2-2
-//            2-1-0-1-0-0-0-0-1-1-2-1-0
+//            2-4-4
+//            2-1-0-1-2-2-2-2-1-1-2-1-0
 
             // Play First Line
             // 2-1-0-1-0-0-0
@@ -902,7 +902,7 @@ void Engine::render() {
             }
 
             // Third Line
-            //  2-2-2
+            //  2-4-4
 
             if (elapsedTime > 31.0f && elapsedTime < 32.0f) {
                 sine.start();
@@ -919,29 +919,29 @@ void Engine::render() {
             if (elapsedTime > 33.0f && elapsedTime < 34.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[2]->setColor(pressFill);
+                    piano[4]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 34.0f && elapsedTime < 35.0f) {
                 sine.stop();
                 if (!piano.empty()) {
-                    piano[2]->setColor(whiteKey);
+                    piano[4]->setColor(whiteKey);
                 }
             }
 
             if (elapsedTime > 35.0f && elapsedTime < 36.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[2]->setColor(pressFill);
+                    piano[4]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 36.0f && elapsedTime < 37.0f) {
                 sine.stop();
                 if (!piano.empty()) {
-                    piano[2]->setColor(whiteKey);
+                    piano[4]->setColor(whiteKey);
                 }
             }
 
             // Fourth Line
-            // 2-1-0-1-0-0-0-0-1-1-2-1-0
+            // 2-1-0-1-2-2-2-2-1-1-2-1-0
             if (elapsedTime > 38.0f && elapsedTime < 39.0f) {
                 sine.start();
                 if (!piano.empty()) {
@@ -993,48 +993,48 @@ void Engine::render() {
             if (elapsedTime > 46.0f && elapsedTime < 47.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[0]->setColor(pressFill);
+                    piano[2]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 47.0f && elapsedTime < 48.0f) {
                 sine.stop();
                 if (!piano.empty()) {
-                    piano[0]->setColor(whiteKey);
+                    piano[2]->setColor(whiteKey);
                 }
             }
 
             if (elapsedTime > 48.0f && elapsedTime < 49.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[0]->setColor(pressFill);
+                    piano[2]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 49.0f && elapsedTime < 50.0f) {
                 sine.stop();
                 if (!piano.empty()) {
-                    piano[0]->setColor(whiteKey);
+                    piano[2]->setColor(whiteKey);
                 }
             }
 
             if (elapsedTime > 50.0f && elapsedTime < 51.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[0]->setColor(pressFill);
+                    piano[2]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 51.0f && elapsedTime < 52.0f) {
                 sine.stop();
                 if (!piano.empty()) {
-                    piano[0]->setColor(whiteKey);
+                    piano[2]->setColor(whiteKey);
                 }
             }
 
             if (elapsedTime > 52.0f && elapsedTime < 53.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[1]->setColor(pressFill);
+                    piano[2]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 53.0f && elapsedTime < 54.0f) {
                 sine.stop();
                 if (!piano.empty()) {
-                    piano[1]->setColor(whiteKey);
+                    piano[2]->setColor(whiteKey);
                 }
             }
 
@@ -1053,33 +1053,45 @@ void Engine::render() {
             if (elapsedTime > 56.0f && elapsedTime < 57.0f) {
                 sine.start();
                 if (!piano.empty()) {
-                    piano[2]->setColor(pressFill);
-                }
-            } else if (elapsedTime >= 57.0f && elapsedTime < 58.0f) {
-                sine.stop();
-                if (!piano.empty()) {
-                    piano[2]->setColor(whiteKey);
-                }
-            }
-
-            if (elapsedTime > 58.0f && elapsedTime < 59.0f) {
-                sine.start();
-                if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 59.0f && elapsedTime < 60.0f) {
+            } else if (elapsedTime >= 57.0f && elapsedTime < 58.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
                 }
             }
 
+            if (elapsedTime > 58.0f && elapsedTime < 59.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[2]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 59.0f && elapsedTime < 60.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[2]->setColor(whiteKey);
+                }
+            }
+
             if (elapsedTime > 60.0f && elapsedTime < 61.0f) {
+                sine.start();
+                if (!piano.empty()) {
+                    piano[1]->setColor(pressFill);
+                }
+            } else if (elapsedTime >= 61.0f && elapsedTime < 62.0f) {
+                sine.stop();
+                if (!piano.empty()) {
+                    piano[1]->setColor(whiteKey);
+                }
+            }
+
+            if (elapsedTime > 62.0f && elapsedTime < 63.0f) {
                 sine.start();
                 if (!piano.empty()) {
                     piano[0]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 61.0f && elapsedTime < 62.0f) {
+            } else if (elapsedTime >= 63.0f && elapsedTime < 64.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[0]->setColor(whiteKey);
@@ -1088,7 +1100,7 @@ void Engine::render() {
 
             //// Program stops playing song here ////
             // Display "Your Turn" text for 2 seconds
-            if (elapsedTime > 62.0f && elapsedTime < 64.0f) {
+            if (elapsedTime > 64.0f && elapsedTime < 66.0f) {
                 string yourTurnText = "Your Turn!!";
                 this->fontRenderer->renderText(yourTurnText, width / 2 - (20 * yourTurnText.length()), height / 1.2, 1.5, vec3{0.996, 0.796, 0.243});
             }
