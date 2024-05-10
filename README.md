@@ -20,8 +20,11 @@ several other graphics concepts from module 4 to generate the vector of piano ke
 This program runs straight on your OS in a pop-up graphical window. 
 
 ## Installations
+GLFW (OpenGL library)
 
 ## Citations
+* Starter code used from Professor Lisa Dion's Module 4 Confetti Button Project
+
 * 'playSine.h' source code:
   * * PortAudio Portable Audio Library.
   * * For more information see: http://www.portaudio.com/

@@ -753,18 +753,12 @@ void Engine::render() {
                 this->fontRenderer->renderText(i3, leftAlign, initialVerticalPosition - 2 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
                 string i4 = "    correct keys on your keyboard to play sound";
                 this->fontRenderer->renderText(i4, leftAlign, initialVerticalPosition - 3 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
-                string i5 = ">> Once you're done playing, the program will ";
+                string i5 = ">> Play the song correctly to win";
                 this->fontRenderer->renderText(i5, leftAlign, initialVerticalPosition - 4 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
-                string i6 = "   play the song one more time";
+                string i6 = ">> Press the left arrow key to return home";
                 this->fontRenderer->renderText(i6, leftAlign, initialVerticalPosition - 5 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
-                string i7 = ">> Play the song correctly";
+                string i7 = ">> Press esc to exit";
                 this->fontRenderer->renderText(i7, leftAlign, initialVerticalPosition - 6 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
-                string i8 = "   to win";
-                this->fontRenderer->renderText(i8, leftAlign, initialVerticalPosition - 7 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
-                string i9 = ">> Press the left arrow key to return home";
-                this->fontRenderer->renderText(i9, leftAlign, initialVerticalPosition - 8 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
-                string i10 = ">> Press esc to exit";
-                this->fontRenderer->renderText(i10, leftAlign, initialVerticalPosition - 9 * verticalSpacing, 0.60, vec3{0.984, 0.945, 0.933});
 
                 showText = true;
             } else {
