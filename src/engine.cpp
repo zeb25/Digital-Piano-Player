@@ -767,7 +767,14 @@ void Engine::render() {
             }
 
             //// GAME LOGIC FOR MARY HAD A LITTLE LAMB////
-            // Play first line
+//            Mary Had a Little Lamb
+//            2-1-0-1-0-0-0
+//            1-1-1
+//            2-2-2
+//            2-1-0-1-0-0-0-0-1-1-2-1-0
+
+            // Play First Line
+            // 2-1-0-1-0-0-0
 
             // Check if elapsedTime is within the 2 sec buffer time + the time to play the sound (1 sec)
             if (elapsedTime > 2.0f && elapsedTime < 3.0f) {
@@ -777,7 +784,7 @@ void Engine::render() {
                     piano[2]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 3.0f && elapsedTime < 4.0f) { // Ensure sound stops after 1 second
-                // Stop the sound and reset color for piano[2]
+                // Stop the sound and reset color for piano[1]
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
@@ -792,13 +799,11 @@ void Engine::render() {
                     piano[1]->setColor(pressFill);
                 }
             } else if (elapsedTime >= 5.0f && elapsedTime < 6.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
                 }
             }
-
 
             if (elapsedTime > 6.0f && elapsedTime < 7.0f) {
                 // Start playing the sound and change color for piano[1]
@@ -870,7 +875,15 @@ void Engine::render() {
                 }
             }
 
+            // Second Line
+            // 1-1-1
 
+
+            // Third Line
+            //  2-2-2
+
+            // Fourth Line
+            // 2-1-0-1-0-0-0-0-1-1-2-1-0
 
 
 

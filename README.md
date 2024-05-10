@@ -19,18 +19,7 @@ the way through; if they do this correctly the practice rounds concludes and the
 screen exits to the main menu, if the user doesn't correctly play all the keys, the
 practice restarts. If the back key is pressed at any point, the user will exit to the
 main menu.
-## Color Palette
 
-Main Screens:
-- 0.914, 0.663, 0.784 (lightest pink)
-- 0.906, 0.529, 0.718 (medium pink)
-- 0.808, 0.396, 0.667 (dark pink)
-- 0.808, 0.396, 0.667 (purple)
-
-Instructions:
-- 0.808, 0.396, 0.667 (blue background)
-- 0.996, 0.796, 0.243 (yellow title)
-- 0.984, 0.945, 0.933 (off white text)
 
 ## Concepts
 
