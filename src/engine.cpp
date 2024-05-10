@@ -793,12 +793,11 @@ void Engine::render() {
 
             // Check if elapsedTime is within the 4 sec buffer time + the time to play the sound (1 sec)
             if (elapsedTime > 4.0f && elapsedTime < 5.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 5.0f && elapsedTime < 6.0f) { // Ensure that sound stops after 1 second
+            } else if (elapsedTime >= 5.0f && elapsedTime < 6.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -806,13 +805,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 6.0f && elapsedTime < 7.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[0]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 7.0f && elapsedTime < 8.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 7.0f && elapsedTime < 8.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[0]->setColor(whiteKey);
@@ -820,13 +817,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 8.0f && elapsedTime < 9.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 9.0f && elapsedTime < 10.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 9.0f && elapsedTime < 10.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -834,13 +829,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 10.0f && elapsedTime < 11.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[2]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 11.0f && elapsedTime < 12.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 11.0f && elapsedTime < 12.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
@@ -848,13 +841,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 12.0f && elapsedTime < 13.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[2]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 13.0f && elapsedTime < 14.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 13.0f && elapsedTime < 14.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
@@ -862,13 +853,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 14.0f && elapsedTime < 15.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[2]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 15.0f && elapsedTime < 16.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 15.0f && elapsedTime < 16.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
@@ -878,13 +867,11 @@ void Engine::render() {
             // Second Line
             // 1-1-1
             if (elapsedTime > 17.0f && elapsedTime < 18.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 18.0f && elapsedTime < 19.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 18.0f && elapsedTime < 19.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -892,13 +879,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 19.0f && elapsedTime < 20.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 20.0f && elapsedTime < 21.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 20.0f && elapsedTime < 21.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -906,13 +891,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 21.0f && elapsedTime < 22.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 22.0f && elapsedTime < 23.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 22.0f && elapsedTime < 23.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -923,13 +906,11 @@ void Engine::render() {
             //  2-2-2
 
             if (elapsedTime > 24.0f && elapsedTime < 25.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[2]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 25.0f && elapsedTime < 26.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 25.0f && elapsedTime < 26.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
@@ -937,13 +918,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 26.0f && elapsedTime < 27.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[2]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 27.0f && elapsedTime < 28.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 27.0f && elapsedTime < 28.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
@@ -951,13 +930,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 28.0f && elapsedTime < 29.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[2]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 29.0f && elapsedTime < 30.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 29.0f && elapsedTime < 30.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
@@ -967,13 +944,11 @@ void Engine::render() {
             // Fourth Line
             // 2-1-0-1-0-0-0-0-1-1-2-1-0
             if (elapsedTime > 31.0f && elapsedTime < 32.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[2]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 32.0f && elapsedTime < 33.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 32.0f && elapsedTime < 33.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
@@ -981,13 +956,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 33.0f && elapsedTime < 34.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 34.0f && elapsedTime < 35.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 34.0f && elapsedTime < 35.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -995,13 +968,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 35.0f && elapsedTime < 36.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[0]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 36.0f && elapsedTime < 37.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 36.0f && elapsedTime < 37.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[0]->setColor(whiteKey);
@@ -1009,13 +980,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 37.0f && elapsedTime < 38.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 38.0f && elapsedTime < 39.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 38.0f && elapsedTime < 39.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -1023,13 +992,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 39.0f && elapsedTime < 40.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[0]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 40.0f && elapsedTime < 41.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 40.0f && elapsedTime < 41.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[0]->setColor(whiteKey);
@@ -1037,13 +1004,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 41.0f && elapsedTime < 42.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[0]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 42.0f && elapsedTime < 43.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 42.0f && elapsedTime < 43.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[0]->setColor(whiteKey);
@@ -1051,13 +1016,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 43.0f && elapsedTime < 44.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[0]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 44.0f && elapsedTime < 45.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 44.0f && elapsedTime < 45.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[0]->setColor(whiteKey);
@@ -1065,13 +1028,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 45.0f && elapsedTime < 46.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[0]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 46.0f && elapsedTime < 47.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 46.0f && elapsedTime < 47.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[0]->setColor(whiteKey);
@@ -1079,13 +1040,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 47.0f && elapsedTime < 48.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 48.0f && elapsedTime < 49.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 48.0f && elapsedTime < 49.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -1093,13 +1052,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 49.0f && elapsedTime < 50.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 50.0f && elapsedTime < 51.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 50.0f && elapsedTime < 51.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -1107,13 +1064,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 51.0f && elapsedTime < 52.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[2]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 52.0f && elapsedTime < 53.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 52.0f && elapsedTime < 53.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[2]->setColor(whiteKey);
@@ -1121,13 +1076,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 53.0f && elapsedTime < 54.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[1]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 54.0f && elapsedTime < 55.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 54.0f && elapsedTime < 55.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[1]->setColor(whiteKey);
@@ -1135,13 +1088,11 @@ void Engine::render() {
             }
 
             if (elapsedTime > 55.0f && elapsedTime < 56.0f) {
-                // Start playing the sound and change color for piano[1]
                 sine.start();
                 if (!piano.empty()) {
                     piano[0]->setColor(pressFill);
                 }
-            } else if (elapsedTime >= 56.0f && elapsedTime < 57.0f) { // Ensure that sound stops after 1 second
-                // Stop the sound and reset color for piano[1]
+            } else if (elapsedTime >= 56.0f && elapsedTime < 57.0f) {
                 sine.stop();
                 if (!piano.empty()) {
                     piano[0]->setColor(whiteKey);
@@ -1165,14 +1116,6 @@ void Engine::render() {
     }
     glfwSwapBuffers(window);
 }
-
-//void Engine::spawnConfetti() {
-//    vec2 pos = {rand() % (int)width, rand() % (int)height};
-//    int rd = 1 + (rand() % 100);
-//    vec2 size = {rd, rd}; // placeholder
-//    color color = {float(rand() % 10 / 10.0), float(rand() % 10 / 10.0), float(rand() % 10 / 10.0), 1.0f};
-//    confetti.push_back(make_unique<Rect>(shapeShader, pos, size, color));
-//}
 
 void Engine::resetKeyColor(int key) {
     // Determine the original color of the button
